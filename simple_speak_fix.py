@@ -1,4 +1,88 @@
-# core/command_executor.py - Correção simples
+# simple_speak_fix.py
+print("🔧 Aplicando correção simples para speak_with_emotion...")
+
+# Ler agent.py
+with open("core/agent.py", "r", encoding="utf-8") as f:
+    content = f.read()
+
+# Substituir speak_robust por uma versão que funciona
+old_speak_robust = '''    async def speak_robust(self, text: str, emotion: str = "neutro"):
+        """Fala robusta com retry automático e fallback"""
+        try:
+            print(f"\\n🤖 SEXTA-FEIRA ({emotion}): {text}")
+            
+            # Verificar saúde do sistema de áudio
+            if hasattr(self.tts, 'audio_failed_count') and self.tts.audio_failed_count >= 3:
+                print("🔄 Resetando sistema de áudio...")
+                if hasattr(self.tts, 'reset_audio_system'):
+                    self.tts.reset_audio_system()
+            
+            # Tentar falar com retry automático
+            success = False
+            for attempt in range(3):
+                try:
+                    await asyncio.wait_for(self.tts.speak(text, emotion), timeout=8.0)
+                    success = True
+                    break
+                except asyncio.TimeoutError:
+                    print(f"⏰ Timeout na fala (tentativa {attempt + 1})")
+                    if attempt < 2:
+                        await asyncio.sleep(0.5)
+                except Exception as e:
+                    print(f"⚠️ Erro na fala (tentativa {attempt + 1}): {e}")
+                    if attempt < 2:
+                        await asyncio.sleep(0.5)
+            
+            if not success:
+                print(f"🔇 [ÁUDIO FALHOU] {text}")
+            
+            # Salvar mensagem no histórico independente do áudio
+            await self.conversation_manager.add_message("assistant", text)
+            
+        except Exception as e:
+            self.logger.error(f"Erro na fala robusta: {e}")
+            print(f"⚠️ [ERRO DE ÁUDIO] {text}")'''
+
+new_speak_robust = '''    async def speak_robust(self, text: str, emotion: str = "neutro"):
+        """Fala robusta simplificada"""
+        try:
+            print(f"\\n🤖 SEXTA-FEIRA ({emotion}): {text}")
+            await self.tts.speak(text, emotion)
+            await self.conversation_manager.add_message("assistant", text)
+        except Exception as e:
+            self.logger.error(f"Erro na fala: {e}")
+            print(f"⚠️ [ERRO DE ÁUDIO] {text}")
+
+    async def speak_with_emotion(self, text: str, emotion: str = "neutro"):
+        """Fala com emoção específica"""
+        await self.speak_robust(text, emotion)'''
+
+# Substituir se encontrar
+if old_speak_robust in content:
+    content = content.replace(old_speak_robust, new_speak_robust)
+    print("✅ Método speak_robust substituído por versão simplificada")
+else:
+    # Se não encontrar exato, adicionar métodos simples
+    if "async def speak_with_emotion(" not in content:
+        # Encontrar local para inserir
+        insert_point = content.find("    async def create_contextual_response(")
+        if insert_point != -1:
+            simple_methods = '''    async def speak_with_emotion(self, text: str, emotion: str = "neutro"):
+        """Fala com emoção específica"""
+        try:
+            print(f"\\n🤖 SEXTA-FEIRA ({emotion}): {text}")
+            await self.tts.speak(text, emotion)
+            await self.conversation_manager.add_message("assistant", text)
+        except Exception as e:
+            self.logger.error(f"Erro na fala emocional: {e}")
+            print(f"⚠️ [ERRO DE ÁUDIO] {text}")
+
+'''
+            content = content[:insert_point] + simple_methods + content[insert_point:]
+            print("✅ Métodos de fala adicionados")
+
+# Corrigir chamadas no command_executor também
+executor_fix = '''# core/command_executor.py - Correção simples
 # Substituir todas as chamadas speak_with_emotion por speak_robust
 
 import asyncio
@@ -124,3 +208,16 @@ class InternalCommandExecutor:
         except Exception as e:
             await self.agent.speak_robust("Houve um problema ao gerar o relatório.", "frustrado")
             return f"Erro no relatório: {str(e)}"
+'''
+
+# Salvar correção do command_executor
+with open("core/command_executor.py", "w", encoding="utf-8") as f:
+    f.write(executor_fix)
+
+# Salvar agent.py corrigido
+with open("core/agent.py", "w", encoding="utf-8") as f:
+    f.write(content)
+
+print("✅ Correções aplicadas!")
+print("🚀 Execute: python main.py")
+print("💡 Comando 'se melhore' deve funcionar agora!")

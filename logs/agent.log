@@ -325,3 +325,162 @@
 2025-07-31 23:35:17,526 - core.text_to_speech - WARNING - TTS timeout
 2025-07-31 23:35:58,039 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
 2025-07-31 23:35:58,040 - memory.database - INFO - Conexão com banco fechada
+2025-07-31 23:49:51,430 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 23:49:51,432 - memory.database - INFO - Tabelas criadas!
+2025-07-31 23:49:51,432 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 23:49:51,432 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 23:49:51,718 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 23:49:51,733 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 23:49:51,734 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 23:49:51,735 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 23:49:59,743 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:49:59,744 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 23:49:59,745 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 23:50:00,178 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 23:50:01,183 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 23:50:01,204 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 23:50:19,084 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:50:19,149 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 23:50:19,150 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 23:50:19,338 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:50:39,416 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:50:39,460 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:53:26,042 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-07-31 23:53:26,043 - memory.database - INFO - Conexão com banco fechada
+2025-07-31 23:53:32,547 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 23:53:32,550 - memory.database - INFO - Tabelas criadas!
+2025-07-31 23:53:32,550 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 23:53:32,551 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 23:53:32,848 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 23:53:32,862 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 23:53:32,863 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 23:53:32,863 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 23:53:36,731 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:53:36,731 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 23:53:36,732 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 23:53:37,136 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 23:53:38,140 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 23:53:38,169 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 23:53:43,093 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 23:53:43,094 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 23:53:43,229 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:53:46,908 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 23:53:50,355 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:53:58,378 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:53:58,431 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:54:13,393 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:54:22,949 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:54:34,648 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:54:49,661 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:55:01,008 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:55:16,020 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:55:23,517 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:55:29,066 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:55:38,532 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:55:41,527 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:55:44,082 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:55:56,542 - core.text_to_speech - WARNING - TTS timeout
+2025-08-01 00:01:12,731 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:01:12,734 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:01:12,734 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:01:12,734 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:01:13,019 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:01:13,030 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:01:13,031 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:01:13,031 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:01:21,671 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:01:21,672 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:01:21,672 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:01:22,082 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:01:23,087 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:01:23,119 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:01:29,969 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:01:29,970 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:01:34,094 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-08-01 00:03:30,020 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:03:30,023 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:03:30,023 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:03:30,023 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:03:30,303 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:03:30,321 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:03:30,322 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:03:30,322 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:03:33,052 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:03:33,053 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:03:33,053 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:03:33,451 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:03:34,456 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:03:34,486 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:03:43,992 - core.command_executor - INFO - Comando interno detectado: status_report (0.95)
+2025-08-01 00:03:43,992 - core.command_executor - ERROR - Erro ao executar comando status_report: 'AIAgent' object has no attribute 'speak_with_emotion'
+2025-08-01 00:03:44,052 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:03:44,052 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:03:53,553 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:03:56,387 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 00:03:56,388 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 00:04:03,894 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:04:08,842 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:04:08,844 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:04:08,845 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:04:08,845 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:04:09,133 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:04:09,144 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:04:09,145 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:04:09,145 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:04:10,796 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:04:10,797 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:04:10,797 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:04:11,198 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:04:12,203 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:04:12,233 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:04:14,128 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
+2025-08-01 00:04:14,128 - core.command_executor - ERROR - Erro ao executar comando self_improve: 'AIAgent' object has no attribute 'speak_with_emotion'
+2025-08-01 00:04:14,192 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:04:14,192 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:04:23,449 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:04:32,647 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:04:41,876 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:05:20,303 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
+2025-08-01 00:05:20,304 - core.command_executor - ERROR - Erro ao executar comando self_improve: 'AIAgent' object has no attribute 'speak_with_emotion'
+2025-08-01 00:05:22,751 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 00:05:22,752 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 00:05:29,737 - core.text_to_speech - WARNING - TTS demorou muito, pode ter travado
+2025-08-01 00:05:32,265 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:05:32,268 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:05:32,268 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:05:32,268 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:05:32,552 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:05:32,566 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:05:32,568 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:05:32,568 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:05:35,291 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:05:35,292 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:05:35,292 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:05:35,672 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:05:36,676 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:05:36,698 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:05:38,717 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
+2025-08-01 00:05:38,775 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:05:38,775 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:06:30,252 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 00:06:30,253 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 00:06:36,762 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:06:36,764 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:06:36,764 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:06:36,765 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:06:37,046 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:06:37,059 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:06:37,060 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:06:37,061 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:06:39,516 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:06:39,517 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:06:39,517 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:06:39,948 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:06:40,953 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:06:40,985 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:06:43,678 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
+2025-08-01 00:06:43,743 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:06:43,744 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:06:57,975 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
+2025-08-01 00:09:15,728 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 00:09:15,730 - memory.database - INFO - Conexão com banco fechada

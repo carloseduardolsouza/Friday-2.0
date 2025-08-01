@@ -4,11 +4,12 @@ import logging
 import signal
 import sys
 import threading
+import time
 from datetime import datetime
 from typing import Optional, Dict, Any
 
 from core.speech_to_text import SpeechToText
-from core.text_to_speech import TextToSpeech
+from core.text_to_speech import HumanizedTTS
 from core.conversation import ConversationManager
 from core.context_analyzer import ContextAnalyzer
 from memory.user_profile import UserProfile
@@ -16,9 +17,10 @@ from memory.database import DatabaseManager
 from models.local_llm import LocalLLM
 from config.settings import AgentConfig
 from core.self_modifier import SelfModifier
+from core.command_executor import InternalCommandExecutor
 
 class AIAgent:
-    """Classe principal do agente de IA SEXTA-FEIRA"""
+    """Classe principal do agente de IA SEXTA-FEIRA com todas as funcionalidades"""
     
     def __init__(self, config: AgentConfig):
         self.config = config
@@ -32,7 +34,10 @@ class AIAgent:
         self.user_profile: Optional[UserProfile] = None
         self.database: Optional[DatabaseManager] = None
         self.context_analyzer: Optional[ContextAnalyzer] = None
-        self.self_modifier = None
+        
+        # Sistemas avançados
+        self.self_modifier: Optional[SelfModifier] = None
+        self.command_executor: Optional[InternalCommandExecutor] = None
         
         # Estado do agente
         self.is_listening = False
@@ -40,8 +45,9 @@ class AIAgent:
         self.is_running = False
         self.continuous_mode = False
         
-        # Loop assíncrono para callbacks
+        # Loop assíncrono e monitoramento
         self.main_loop = None
+        self._last_audio_check = time.time()
         
     async def initialize(self):
         """Inicializa todos os componentes do agente"""
@@ -65,7 +71,7 @@ class AIAgent:
             
             # Inicializar componentes de voz
             self.stt = SpeechToText(self.config.voice)
-            self.tts = TextToSpeech(self.config.voice)
+            self.tts = HumanizedTTS(self.config.voice)
             
             # Inicializar analisador de contexto
             self.context_analyzer = ContextAnalyzer(self.config.name)
@@ -77,8 +83,9 @@ class AIAgent:
                 self.config
             )
             
-            # Inicializar sistema de auto-modificação
+            # Inicializar sistemas avançados
             self.self_modifier = SelfModifier(self.llm, self.user_profile)
+            self.command_executor = InternalCommandExecutor(self)
             
             self.logger.info("Todos os componentes inicializados com sucesso!")
             
@@ -97,17 +104,20 @@ class AIAgent:
         else:
             greeting = f"Olá {user_name}! Sou a SEXTA-FEIRA, sua assistente pessoal."
         
-        print(f"\n            self.command_executor = InternalCommandExecutor(self)\n        self.command_executor = None\nfrom core.command_executor import InternalCommandExecutor\n🤖 SEXTA-FEIRA: {greeting}")
+        print(f"\n🤖 SEXTA-FEIRA: {greeting}")
         
-        print("\n" + "="*60)
-        print("🤖 MODOS DISPONÍVEIS:")
+        print("\n" + "="*70)
+        print("🤖 FUNCIONALIDADES DISPONÍVEIS:")
         print("⌨️  Digite normalmente para conversar")
-        print("🎤 'voz' = falar uma vez")  
-        print("👂 'continuo' = ESCUTA CONTÍNUA INTELIGENTE")
-        print("🔧 'analisar código' = AUTO-ANÁLISE")
-        print("🎭 'teste voz' = TESTAR EMOÇÕES")
+        print("🎤 'voz' = usar reconhecimento de voz uma vez")  
+        print("👂 'continuo' = MODO ESCUTA CONTÍNUA INTELIGENTE")
+        print("🔧 'analise seu código' = AUTO-ANÁLISE DO PRÓPRIO CÓDIGO")
+        print("🎭 'teste sua voz' = DEMONSTRAR EMOÇÕES DE VOZ")
+        print("💾 'faça um backup' = BACKUP AUTOMÁTICO DO CÓDIGO")
+        print("📊 'como você está' = RELATÓRIO COMPLETO DE STATUS")
+        print("🚀 'se melhore' = AUTO-MELHORIA DO CÓDIGO")
         print("❌ 'sair' = encerrar")
-        print("=" * 60 + "\n")
+        print("=" * 70 + "\n")
         
         try:
             while self.is_running:
@@ -127,9 +137,6 @@ class AIAgent:
                                 user_input = voice_input
                             else:
                                 continue
-                        elif user_input.lower() == "teste voz":
-                            await self.test_voice_emotions()
-                            continue
                         elif user_input.lower().startswith("nome "):
                             name = user_input[5:].strip()
                             await self.set_user_name(name)
@@ -137,9 +144,10 @@ class AIAgent:
                         
                         response = await self.process_input(user_input)
                         if response:
-                            await self.speak(response)
+                            await self.speak_robust(response)
                 else:
-                    # Modo contínuo ativo - aguardar
+                    # Modo contínuo ativo - monitoramento de áudio
+                    await self.handle_audio_monitoring()
                     await asyncio.sleep(0.5)
                 
         except KeyboardInterrupt:
@@ -147,14 +155,37 @@ class AIAgent:
         finally:
             await self.shutdown()
     
+    async def handle_audio_monitoring(self):
+        """Monitora saúde do áudio no modo contínuo"""
+        try:
+            current_time = time.time()
+            
+            # Verificar áudio a cada 3 minutos
+            if current_time - self._last_audio_check > 180:
+                self._last_audio_check = current_time
+                
+                # Testar sistema de áudio se disponível
+                if hasattr(self.tts, 'test_audio_system'):
+                    if not self.tts.test_audio_system():
+                        print("🔄 Problema de áudio detectado, resetando...")
+                        if hasattr(self.tts, 'reset_audio_system'):
+                            self.tts.reset_audio_system()
+                        
+        except Exception as e:
+            self.logger.error(f"Erro no monitoramento de áudio: {e}")
+    
     async def start_continuous_mode(self):
-        """Inicia modo de escuta contínua"""
+        """Inicia modo de escuta contínua inteligente"""
         self.continuous_mode = True
+        
+        await self.speak_robust("Ativando modo de escuta contínua inteligente!")
+        
         print("\n👂 MODO CONTÍNUO ATIVADO!")
         print("💡 Agora estou sempre escutando... fale naturalmente!")
         print("📢 Me mencione por 'SEXTA-FEIRA' ou fale sobre mim que eu respondo")
+        print("🎯 Comandos funcionam normalmente: 'analise seu código', 'teste sua voz', etc.")
         print("🔇 Digite 'parar' para desativar")
-        print("\n" + "="*50)
+        print("\n" + "="*60)
         
         # Iniciar escuta contínua
         self.stt.start_continuous_listening(self.on_continuous_speech)
@@ -179,7 +210,7 @@ class AIAgent:
                 elif user_text.strip():
                     response = await self.process_input(user_text.strip())
                     if response:
-                        await self.speak(response)
+                        await self.speak_robust(response)
                         
             except asyncio.TimeoutError:
                 continue
@@ -230,50 +261,42 @@ class AIAgent:
             await self.conversation_manager.add_message("user", text)
             response = await self.create_contextual_response(text, reason, confidence)
             if response:
-                await self.speak(response)
+                await self.speak_robust(response)
         except Exception as e:
             self.logger.error(f"Erro na resposta contínua: {e}")
-            print("🤖 SEXTA-FEIRA: Desculpe, houve um erro interno.")
+            await self.speak_robust("Desculpe, houve um erro interno.")
     
     async def speak_with_emotion(self, text: str, emotion: str = "neutro"):
         """Fala com emoção específica"""
         try:
-            print(f"\n🤖 SEXTA-FEIRA: {text}")
+            print(f"\n🤖 SEXTA-FEIRA ({emotion}): {text}")
             await self.tts.speak(text, emotion)
+            await self.conversation_manager.add_message("assistant", text)
         except Exception as e:
             self.logger.error(f"Erro na fala emocional: {e}")
+            print(f"⚠️ [ERRO DE ÁUDIO] {text}")
 
-    async def speak(self, text: str):
-        """Fala o texto fornecido com emoção neutra"""
-        await self.speak_with_emotion(text, "neutro")
+    async def speak_robust(self, text: str, emotion: str = "neutro"):
+        """Fala robusta com retry automático e fallback"""
+        await self.speak_with_emotion(text, emotion)
 
     async def create_contextual_response(self, text: str, reason: str, confidence: float) -> str:
-        """Cria resposta baseada no contexto com reconhecimento melhorado"""
+        """Cria resposta baseada no contexto"""
         try:
             user_info = self.user_profile.get_summary()
             emotions = self.context_analyzer.analyze_emotional_context(text)
             dominant_emotion = max(emotions, key=emotions.get)
             
             # Contexto baseado em como foi detectada
-            if "SEXTA-FEIRA detectado explicitamente" in reason:
+            if "SEXTA-FEIRA detectado" in reason or "Nome SEXTA-FEIRA detectado" in reason:
                 context_prompt = f"""SITUAÇÃO: O usuário me chamou pelo meu nome 'SEXTA-FEIRA'.
 ENTRADA: "{text}"
-INSTRUÇÃO: Responda de forma calorosa e engajada, reconhecendo que me chamaram. Diga que estou aqui para ajudar."""
+INSTRUÇÃO: Responda de forma calorosa e engajada, reconhecendo que me chamaram."""
             
             elif "Referência direta detectada" in reason:
                 context_prompt = f"""SITUAÇÃO: O usuário fez uma pergunta direta para mim.
 PERGUNTA: "{text}"
-INSTRUÇÃO: Responda de forma direta e útil, assumindo que a pergunta é para mim."""
-            
-            elif "defesa" in reason.lower():
-                context_prompt = f"""SITUAÇÃO: O usuário fez um comentário negativo sobre mim.
-COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma educada mas me defendendo. Mostre que sou útil e estou aqui para ajudar."""
-            
-            elif "indireta" in reason.lower():
-                context_prompt = f"""SITUAÇÃO: O usuário mencionou sobre mim indiretamente.
-COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma natural, participando da conversa sobre mim."""
+INSTRUÇÃO: Responda de forma direta e útil."""
             
             elif confidence > 0.8:
                 context_prompt = f"""SITUAÇÃO: O usuário se dirigiu diretamente a mim.
@@ -283,37 +306,42 @@ INSTRUÇÃO: Responda de forma direta e útil."""
             else:
                 context_prompt = f"""SITUAÇÃO: O usuário pode estar falando comigo.
 FALA: "{text}"
-INSTRUÇÃO: Responda brevemente perguntando se estava falando comigo e oferecendo ajuda."""
+INSTRUÇÃO: Responda brevemente oferecendo ajuda."""
             
-            prompt = f"""Você é SEXTA-FEIRA, uma assistente pessoal IA amigável e inteligente, inspirada na IA do Homem de Ferro.
+            prompt = f"""Você é SEXTA-FEIRA, uma assistente pessoal IA amigável e inteligente.
 
-INFORMAÇÕES DO USUÁRIO:
-{user_info}
-
-EMOÇÃO DETECTADA: {dominant_emotion}
+USUÁRIO: {user_info}
+EMOÇÃO: {dominant_emotion}
 
 {context_prompt}
 
-REGRAS IMPORTANTES:
-- Seu nome é SEXTA-FEIRA (não ARIA ou outro nome)
-- Seja natural, calorosa e prestativa
-- Máximo 2-3 frases
-- Se me chamaram pelo nome, reconheça isso
-- Use tom adequado à emoção detectada
+Responda de forma natural e concisa (máximo 2-3 frases).
 
 RESPOSTA:"""
             
             response = await self.llm.generate_response(prompt)
-            
-            # Usar emoção para a voz
-            await self.speak_with_emotion(response, dominant_emotion)
-            await self.conversation_manager.add_message("assistant", response)
-            
-            return None  # Já falou e salvou
+            return response
             
         except Exception as e:
             self.logger.error(f"Erro ao criar resposta contextual: {e}")
             return "Oi! Sou a SEXTA-FEIRA. Estou aqui se precisar de alguma coisa."
+
+    async def test_voice_quality(self):
+        """Testa qualidade das vozes disponíveis"""
+        print("🎭 Testando qualidade das vozes...")
+        
+        # Mostrar engines disponíveis
+        if hasattr(self.tts, 'get_available_engines'):
+            available_engines = self.tts.get_available_engines()
+            print("🔊 Engines disponíveis:")
+            for engine in available_engines:
+                print(f"   • {engine}")
+        
+        # Testar qualidade
+        if hasattr(self.tts, 'test_voice_quality'):
+            self.tts.test_voice_quality()
+        
+        print("\n✅ Teste de qualidade concluído!")
 
     async def test_voice_emotions(self):
         """Testa diferentes emoções da voz"""
@@ -325,31 +353,23 @@ RESPOSTA:"""
             ("Estou frustrada com esse problema técnico.", "frustrado")
         ]
         
+        await self.speak_robust("Vou demonstrar minhas diferentes emoções!", "feliz")
+        
         print("\n🎭 Testando diferentes emoções da SEXTA-FEIRA:")
         for text, emotion in emotions_test:
             print(f"\n{emotion.upper()}: {text}")
-            await self.speak_with_emotion(text, emotion)
-            await asyncio.sleep(1)  # Pausa entre testes
+            await self.speak_robust(text, emotion)
+            await asyncio.sleep(1.5)
         
+        await self.speak_robust("Demonstração de emoções concluída!", "feliz")
         print("\n✅ Teste de emoções concluído!")
-
-    async def handle_self_modification(self, request: str) -> str:
-        """Manipula pedidos de auto-modificação"""
-        try:
-            if self.self_modifier:
-                return await self.self_modifier.handle_modification_request(request)
-            else:
-                return "❌ Sistema não inicializado"
-        except Exception as e:
-            return f"❌ Erro: {e}"
 
     async def set_user_name(self, name: str):
         """Define nome do usuário"""
         self.user_profile.user_info.name = name
         await self.user_profile.save_profile()
         response = f"Entendi! Agora sei que você se chama {name}."
-        print(f"\n🤖 SEXTA-FEIRA: {response}")
-        await self.tts.speak(response)
+        await self.speak_robust(response, "feliz")
     
     async def get_user_input(self) -> Optional[str]:
         """Obtém input de texto do usuário"""
@@ -381,17 +401,27 @@ RESPOSTA:"""
         try:
             print("🧠 Processando...")
             
-            # Verificar comandos de auto-modificação
-            
-            # Verificar comandos internos primeiro
+            # PRIMEIRO: Verificar comandos internos (com resposta falada)
             if self.command_executor:
                 internal_response = await self.command_executor.process_natural_command(user_input)
                 if internal_response:
                     return internal_response
-            \n            # mod_commands = ["analisar código", "melhorar código", "status código", "backup código"]
-            if any(cmd in user_input.lower() for cmd in mod_commands):
-                return await self.handle_self_modification(user_input)
             
+            # SEGUNDO: Verificar comandos de auto-modificação diretos
+            mod_commands = [
+                "analisar código", "analise seu código", "verifica seu código",
+                "melhorar código", "melhore seu código", "otimize seu código", 
+                "status código", "como está seu código",
+                "backup código", "faça backup", "crie backup",
+                "teste sua voz", "teste de voz", "demonstre emoções",
+                "como você está", "qual seu status", "relatório completo"
+            ]
+            
+            if any(cmd in user_input.lower() for cmd in mod_commands):
+                if self.self_modifier:
+                    return await self.self_modifier.handle_modification_request(user_input)
+            
+            # TERCEIRO: Processar como conversa normal
             await self.user_profile.extract_and_update_info(user_input)
             
             prompt = self.create_simple_prompt(user_input)
@@ -407,13 +437,13 @@ RESPOSTA:"""
         """Cria prompt simples"""
         user_info = self.user_profile.get_summary()
         
-        prompt = f"""Você é SEXTA-FEIRA, uma assistente pessoal amigável.
+        prompt = f"""Você é SEXTA-FEIRA, uma assistente pessoal amigável e inteligente.
 
 USUÁRIO: {user_info}
 
 PERGUNTA: {user_input}
 
-Responda de forma natural e concisa (máximo 2 frases).
+Responda de forma natural e concisa (máximo 2-3 frases).
 
 RESPOSTA:"""
         
@@ -438,4 +468,5 @@ RESPOSTA:"""
         if self.database:
             await self.database.close()
         
-        print("👋 Até logo!")
+        await self.speak_robust("Até logo! Foi um prazer ajudá-lo.", "feliz")
+        print("👋 SEXTA-FEIRA encerrada!")
