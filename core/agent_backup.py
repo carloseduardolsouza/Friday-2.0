@@ -18,7 +18,6 @@ from models.local_llm import LocalLLM
 from config.settings import AgentConfig
 from core.self_modifier import SelfModifier
 from core.command_executor import InternalCommandExecutor
-from core.self_evolution import SelfEvolutionSystem
 
 class AIAgent:
     """Classe principal do agente de IA SEXTA-FEIRA com todas as funcionalidades"""
@@ -88,13 +87,6 @@ class AIAgent:
             self.self_modifier = SelfModifier(self.llm, self.user_profile)
             self.command_executor = InternalCommandExecutor(self)
             
-        
-        # Inicializar sistema de auto-evolução
-        try:
-            self.evolution_system = SelfEvolutionSystem(self.llm, self.user_profile)
-            self.logger.info("Sistema de auto-evolução ativado!")
-        except Exception as e:
-            self.logger.warning(f"Sistema de auto-evolução não pôde ser ativado: {e}")
             self.logger.info("Todos os componentes inicializados com sucesso!")
             
         except Exception as e:
@@ -409,23 +401,6 @@ RESPOSTA:"""
         try:
             print("🧠 Processando...")
             
-        
-        # NOVO: Verificar comandos de auto-evolução
-        if self.evolution_system:
-            evolution_commands = [
-                "analise seu código", "melhore seu sistema", "otimize", 
-                "revise", "como está seu código", "evolua"
-            ]
-            
-            if any(cmd in user_input.lower() for cmd in evolution_commands):
-                try:
-                    evolution_response = await self.evolution_system.handle_evolution_command(user_input)
-                    if evolution_response:
-                        return evolution_response
-                except Exception as e:
-                    self.logger.error(f"Erro no sistema de evolução: {e}")
-                    return "Erro no sistema de auto-evolução. Verifique os logs."
-
             # PRIMEIRO: Verificar comandos internos (com resposta falada)
             if self.command_executor:
                 internal_response = await self.command_executor.process_natural_command(user_input)

@@ -236,3 +236,134 @@
 2025-08-01 18:30:23,696 - core.speech_to_text - INFO - Calibrando microfone...
 2025-08-01 18:30:24,703 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
 2025-08-01 18:30:24,729 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 18:49:04,961 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 18:49:04,977 - memory.database - INFO - Tabelas criadas!
+2025-08-01 18:49:04,977 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 18:49:04,977 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 18:49:04,998 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 18:49:07,048 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:49:07,048 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 18:49:07,048 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 18:49:09,098 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:49:09,098 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 18:49:09,098 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 18:49:09,429 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 18:49:10,445 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 18:49:10,469 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 18:49:40,686 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 18:51:48,448 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 18:51:48,452 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 18:51:48,454 - memory.database - ERROR - Erro ao salvar mensagem: Cannot operate on a closed database.
+2025-08-01 18:53:06,820 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 18:53:06,820 - memory.database - INFO - Tabelas criadas!
+2025-08-01 18:53:06,820 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 18:53:06,829 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 18:53:06,847 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 18:53:08,902 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:53:08,902 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 18:53:08,902 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 18:53:10,936 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:53:10,937 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 18:53:10,938 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 18:53:11,245 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 18:53:12,251 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 18:53:12,283 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 18:53:43,255 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 18:55:39,107 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 18:55:39,109 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 18:55:39,112 - memory.database - ERROR - Erro ao salvar mensagem: Cannot operate on a closed database.
+2025-08-01 18:56:12,070 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 18:56:12,070 - memory.database - INFO - Tabelas criadas!
+2025-08-01 18:56:12,070 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 18:56:12,070 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 18:56:12,083 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 18:56:14,126 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:56:14,126 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 18:56:14,126 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 18:56:16,161 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:56:16,161 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 18:56:16,161 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 18:56:16,469 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 18:56:17,473 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 18:56:17,499 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 18:56:23,660 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 18:59:29,933 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 18:59:29,934 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 18:59:40,436 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 18:59:40,436 - memory.database - INFO - Tabelas criadas!
+2025-08-01 18:59:40,436 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 18:59:40,436 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 18:59:40,463 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 18:59:42,523 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:59:42,525 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 18:59:42,525 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 18:59:44,561 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 18:59:44,561 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 18:59:44,561 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 18:59:44,926 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 18:59:45,930 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 18:59:45,969 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 18:59:46,058 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 18:59:52,215 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 18:59:52,217 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 18:59:58,429 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 19:00:02,266 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 19:00:10,682 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 19:00:17,460 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 19:00:17,461 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 19:00:17,461 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 19:02:11,978 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 19:02:11,978 - memory.database - INFO - Tabelas criadas!
+2025-08-01 19:02:11,978 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 19:02:11,978 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 19:02:11,978 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 19:02:14,025 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 19:02:14,025 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 19:02:14,025 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 19:02:16,058 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 19:02:16,058 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 19:02:16,058 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 19:02:16,414 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 19:02:17,424 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 19:02:17,455 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 19:02:25,136 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 19:03:11,197 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 19:03:11,197 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 19:05:08,184 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 19:05:08,184 - memory.database - INFO - Tabelas criadas!
+2025-08-01 19:05:08,184 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 19:05:08,184 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 19:05:08,204 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 19:05:10,251 - models.local_llm - ERROR - Erro ao listar modelos: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 19:05:10,253 - models.local_llm - INFO - Modelos disponíveis: []
+2025-08-01 19:05:10,253 - models.local_llm - WARNING - Modelo llama3.2:1b não encontrado nos modelos: []
+2025-08-01 19:05:12,296 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 19:05:12,298 - models.local_llm - WARNING - Modelo respondeu com: Desculpe, houve um erro: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https:/
+2025-08-01 19:05:12,316 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 19:05:12,743 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 19:05:13,773 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 19:05:13,822 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 19:05:28,646 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-08-01 19:05:42,035 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 19:05:44,091 - models.local_llm - ERROR - Erro ao gerar resposta: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2025-08-01 19:06:14,589 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 19:06:14,594 - memory.database - INFO - Tabelas criadas!
+2025-08-01 19:06:14,594 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 19:06:14,595 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 19:06:14,620 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 19:06:14,672 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 19:06:14,674 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:3b', 'llama3.2:1b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 19:06:14,674 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 19:06:22,315 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 19:06:22,321 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 19:06:22,321 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 19:06:22,732 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 19:06:23,737 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 19:06:23,766 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 19:06:38,335 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-08-01 19:06:43,428 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 19:06:49,015 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 19:06:58,647 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 19:07:00,097 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 19:07:05,015 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 19:07:23,388 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
