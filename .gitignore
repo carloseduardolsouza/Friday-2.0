@@ -1,0 +1,33 @@
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Arquivos temporários
+*.tmp
+*.temp
+temp_audio/
+proposals/
+
+# Logs
+logs/*.log
+
+# Backups
+backup_*/
+backups/
+
+# Áudio temporário
+*.wav
+*.mp3
+
+# Dados pessoais (opcional)
+data/user_data.json
+data/conversations.db
+
+# Scripts de instalação (após uso)
+install_*.py
+update_*.py
+create_*.py
+fix_*.py
+simple_*.py
+self_modification.py

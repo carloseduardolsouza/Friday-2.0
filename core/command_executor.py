@@ -98,12 +98,12 @@ class InternalCommandExecutor:
                 
                 if suggestions:
                     await self.agent.speak_robust(
-                        f"Identifiquei {len(suggestions)} áreas para melhoria. Trabalhando nisso!", 
+                        f"Identifiquei {len(suggestions)} áreas para melhoria. Trabalhando nisso!",
                         "feliz"
                     )
                 else:
                     await self.agent.speak_robust(
-                        "Meu código está otimizado! Não há melhorias necessárias no momento.", 
+                        "Meu código está otimizado! Não há melhorias necessárias no momento.",
                         "feliz"
                     )
                 

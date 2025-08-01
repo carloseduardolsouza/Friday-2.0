@@ -13,7 +13,7 @@ class CodeAnalyzer:
         
         self.modifiable_files = [
             "core/agent.py",
-            "core/speech_to_text.py", 
+            "core/speech_to_text.py",
             "core/text_to_speech.py",
             "memory/user_profile.py",
             "models/local_llm.py"

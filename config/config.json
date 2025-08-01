@@ -1,18 +1,14 @@
 {
-  "name": "ARIA",
+  "name": "SEXTA-FEIRA",
   "personality": "amigável, prestativo e inteligente",
   "voice": {
-    "tts_engine": "pyttsx3",
-    "voice_rate": 200,
-    "voice_volume": 0.9,
     "voice_language": "pt-BR",
     "recognition_language": "pt-BR",
-    "wake_word": "assistente"
+    "wake_word": "sexta-feira"
   },
   "model": {
     "model_name": "llama3.2:3b",
     "max_tokens": 2048,
-    "temperature": 0.7,
-    "context_length": 4096
+    "temperature": 0.7
   }
 }

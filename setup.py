@@ -33,7 +33,7 @@ def create_directories():
     print("📁 Criando estrutura de diretórios...")
     
     directories = [
-        "config", "core", "memory", "models", "data", 
+        "config", "core", "memory", "models", "data",
         "logs", "utils", "tests"
     ]
     
@@ -53,12 +53,12 @@ def install_dependencies():
     
     try:
         # Atualizar pip
-        subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], 
+        subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"],
                       check=True, capture_output=True)
         
         # Instalar dependências do requirements.txt
         if Path("requirements.txt").exists():
-            subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], 
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"],
                           check=True)
         else:
             # Instalar dependências essenciais manualmente
@@ -76,7 +76,7 @@ def install_dependencies():
             
             for package in essential_packages:
                 print(f"   Instalando {package}...")
-                subprocess.run([sys.executable, "-m", "pip", "install", package], 
+                subprocess.run([sys.executable, "-m", "pip", "install", package],
                               check=True, capture_output=True)
         
         print("✅ Dependências instaladas com sucesso!")
@@ -91,7 +91,7 @@ def setup_ollama():
     
     # Verificar se Ollama está instalado
     try:
-        result = subprocess.run(["ollama", "--version"], 
+        result = subprocess.run(["ollama", "--version"],
                                capture_output=True, text=True, timeout=10)
         if result.returncode == 0:
             print("✅ Ollama já está instalado!")
@@ -99,7 +99,7 @@ def setup_ollama():
             # Baixar modelo padrão
             print("📥 Baixando modelo llama3.2:3b (isso pode demorar)...")
             try:
-                subprocess.run(["ollama", "pull", "llama3.2:3b"], 
+                subprocess.run(["ollama", "pull", "llama3.2:3b"],
                               check=True, timeout=300)
                 print("✅ Modelo baixado com sucesso!")
             except subprocess.TimeoutExpired:

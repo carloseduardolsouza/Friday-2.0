@@ -61,7 +61,7 @@ class SpeechToText:
             
             try:
                 text = self.recognizer.recognize_google(
-                    audio, 
+                    audio,
                     language=self.config.recognition_language
                 )
                 return text.strip()
@@ -117,7 +117,7 @@ class SpeechToText:
                 # Processar áudio em background
                 try:
                     text = self.recognizer.recognize_google(
-                        audio, 
+                        audio,
                         language=self.config.recognition_language
                     )
                     

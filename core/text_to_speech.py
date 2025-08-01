@@ -1,303 +1,342 @@
 # core/text_to_speech.py
 import asyncio
 import logging
-import pyttsx3
-import threading
-import random
+import pygame
 import time
-import requests
-import tempfile
-import os
+import re
+import random
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, List
 from config.settings import VoiceConfig
 
+# Tentar imports opcionais
 try:
     from gtts import gTTS
-    import pygame
     GTTS_AVAILABLE = True
 except ImportError:
     GTTS_AVAILABLE = False
-    print("⚠️ gTTS não disponível. Instale com: pip install gtts pygame")
 
-class HumanizedTTS:
-    """Sistema de TTS humanizado com múltiplas opções"""
+try:
+    import pyttsx3
+    PYTTSX3_AVAILABLE = True
+except ImportError:
+    PYTTSX3_AVAILABLE = False
+
+# Não usar Bark por enquanto - muito instável
+BARK_AVAILABLE = False
+
+class SuperiorFeminineVoice:
+    """Sistema de voz feminina otimizado - SEM duplicação"""
     
     def __init__(self, config: VoiceConfig):
         self.config = config
         self.logger = logging.getLogger(__name__)
         
-        # Preferências de voz (ordem de prioridade)
-        self.voice_engines = {
-            "azure": self._speak_azure,      # Melhor qualidade (se disponível)
-            "gtts": self._speak_gtts,        # Google TTS (online)
-            "pyttsx3": self._speak_pyttsx3,  # Sistema local (fallback)
-        }
+        # Sistema de voz único - sem conflitos
+        self.current_engine = None
+        self.is_speaking = False  # Prevenir múltiplas reproduções
         
-        # Configurações de humanização
-        self.humanization_settings = {
-            "pause_factor": 1.2,      # Pausas mais naturais
-            "speed_variation": 0.15,  # Variação de velocidade
-            "emotion_intensity": 0.8, # Intensidade das emoções
-            "breath_pauses": True,    # Pausas para "respirar"
-        }
-        
-        # Inicializar pygame para reprodução
-        try:
-            pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
-            self.pygame_available = True
-        except:
-            self.pygame_available = False
-            self.logger.warning("Pygame não disponível")
-        
-        # Configurações de emoção mais sofisticadas
-        self.emotion_configs = {
+        # Configurações de voz feminina por emoção
+        self.voice_profiles = {
             "feliz": {
-                "rate": 210, "volume": 0.95, "pitch": "+20Hz",
-                "pause_multiplier": 0.8, "excitement": 0.9
-            },
-            "triste": {
-                "rate": 160, "volume": 0.75, "pitch": "-15Hz",
-                "pause_multiplier": 1.4, "melancholy": 0.8
-            },
-            "curioso": {
-                "rate": 190, "volume": 0.88, "pitch": "+10Hz",
-                "pause_multiplier": 1.1, "inquisitive": 0.7
-            },
-            "neutro": {
-                "rate": 180, "volume": 0.85, "pitch": "0Hz",
-                "pause_multiplier": 1.0, "neutral": 1.0
-            },
-            "frustrado": {
-                "rate": 200, "volume": 0.9, "pitch": "+5Hz",
-                "pause_multiplier": 0.9, "tension": 0.8
+                "speed_factor": 1.15,
+                "volume": 0.95,
+                "energy": "high",
+                "pauses": [0.2, 0.3],
+                "style": "animated"
             },
             "carinhoso": {
-                "rate": 170, "volume": 0.82, "pitch": "-5Hz",
-                "pause_multiplier": 1.2, "warmth": 0.9
+                "speed_factor": 0.85,
+                "volume": 0.80,
+                "energy": "soft",
+                "pauses": [0.6, 0.8],
+                "style": "gentle"
+            },
+            "triste": {
+                "speed_factor": 0.75,
+                "volume": 0.70,
+                "energy": "low", 
+                "pauses": [0.9, 1.2],
+                "style": "melancholic"
+            },
+            "curioso": {
+                "speed_factor": 1.05,
+                "volume": 0.88,
+                "energy": "medium",
+                "pauses": [0.3, 0.4],
+                "style": "inquisitive"
+            },
+            "neutro": {
+                "speed_factor": 1.0,
+                "volume": 0.85,
+                "energy": "medium",
+                "pauses": [0.4, 0.6],
+                "style": "professional"
+            },
+            "frustrado": {
+                "speed_factor": 1.2,
+                "volume": 0.90,
+                "energy": "high",
+                "pauses": [0.15, 0.25],
+                "style": "tense"
+            },
+            "sedutor": {
+                "speed_factor": 0.8,
+                "volume": 0.75,
+                "energy": "intimate",
+                "pauses": [0.7, 1.0],
+                "style": "seductive"
             }
         }
         
+        # Configurar sistemas disponíveis
+        self.available_engines = []
         self.temp_dir = Path("temp_audio")
         self.temp_dir.mkdir(exist_ok=True)
+        
+        # Inicializar pygame APENAS UMA VEZ
+        self.pygame_ready = False
+        self._init_pygame()
+        
+        # Detectar melhor engine disponível
+        self._detect_best_engine()
+        
+        # Status
+        self._print_status()
+    
+    def _init_pygame(self):
+        """Inicializa pygame UMA única vez"""
+        try:
+            if not pygame.mixer.get_init():
+                pygame.mixer.init(frequency=22050, size=-16, channels=1, buffer=512)
+            self.pygame_ready = True
+        except Exception as e:
+            self.logger.error(f"Pygame erro: {e}")
+            self.pygame_ready = False
+    
+    def _detect_best_engine(self):
+        """Detecta e escolhe o melhor engine disponível"""
+        if GTTS_AVAILABLE:
+            self.available_engines.append("gtts")
+        
+        if PYTTSX3_AVAILABLE:
+            self.available_engines.append("pyttsx3")
+        
+        # Escolher o melhor
+        if "gtts" in self.available_engines:
+            self.current_engine = "gtts"
+        elif "pyttsx3" in self.available_engines:
+            self.current_engine = "pyttsx3"
+        else:
+            self.current_engine = "text_only"
+    
+    def _print_status(self):
+        """Mostra status do sistema UMA vez"""
+        print("\n🎭 SISTEMA DE VOZ FEMININA OTIMIZADO:")
+        
+        if self.current_engine == "gtts":
+            print("🌟 Google TTS: ATIVO (Alta Qualidade)")
+        elif self.current_engine == "pyttsx3":
+            print("✅ pyttsx3 Feminino: ATIVO")
+        else:
+            print("📝 Modo Texto: ATIVO")
+        
+        print(f"🎪 {len(self.voice_profiles)} emoções disponíveis")
+        print("=" * 40)
     
     async def speak(self, text: str, emotion: str = "neutro"):
-        """Interface principal para fala humanizada"""
+        """Interface principal - SEM duplicação"""
         if not text.strip():
             return
         
-        # Processar texto para humanização
-        processed_text = self._humanize_text(text, emotion)
+        # Prevenir múltiplas reproduções simultâneas
+        if self.is_speaking:
+            return
         
-        # Tentar engines em ordem de prioridade
-        success = False
-        for engine_name, engine_func in self.voice_engines.items():
-            try:
-                if engine_name == "azure" and not self._azure_available():
-                    continue
-                if engine_name == "gtts" and not GTTS_AVAILABLE:
-                    continue
-                
-                print(f"🎤 Usando engine: {engine_name}")
-                await engine_func(processed_text, emotion)
-                success = True
-                break
-                
-            except Exception as e:
-                self.logger.warning(f"Engine {engine_name} falhou: {e}")
-                continue
+        self.is_speaking = True
         
-        if not success:
-            print(f"🔇 [TODAS AS ENGINES FALHARAM] {text}")
+        try:
+            # Processar texto
+            processed_text = self._humanize_text(text, emotion)
+            
+            # Reproduzir COM APENAS UM ENGINE
+            if self.current_engine == "gtts":
+                await self._speak_gtts_only(processed_text, emotion)
+            elif self.current_engine == "pyttsx3":
+                await self._speak_pyttsx3_only(processed_text, emotion)
+            else:
+                print(f"🤖 SEXTA-FEIRA ({emotion}): {text}")
+                
+        except Exception as e:
+            self.logger.error(f"Erro na fala: {e}")
+            print(f"🤖 SEXTA-FEIRA: {text}")
+        finally:
+            self.is_speaking = False
     
     def _humanize_text(self, text: str, emotion: str) -> str:
-        """Processa texto para soar mais humano"""
+        """Processamento brasileiro otimizado"""
         
-        # Substituições para pronúncia mais natural
+        # Substituições essenciais
         replacements = {
-            "SEXTA-FEIRA": "Sexta feira",
-            "IA": "Inteligência Artificial",
-            "AI": "A I",
-            "TTS": "T T S",
-            "API": "A P I",
-            "URL": "U R L",
-            "CPU": "C P U",
-            "RAM": "R A M",
-            "SSD": "S S D",
-            "USB": "U S B",
-            "WiFi": "Wi Fi",
-            "Bluetooth": "Blu tu",
+            "SEXTA-FEIRA": "Sexta-feira",
+            "IA": "inteligência artificial",
+            "AI": "inteligência artificial",
+            "TTS": "sistema de voz",
+            "API": "interface de programação",
+            "URL": "endereço web",
+            "CPU": "processador",
+            "RAM": "memória",
+            "WiFi": "rede sem fio",
             "&": "e",
             "%": "por cento",
             "@": "arroba",
-            "#": "hashtag",
-            "°C": "graus Celsius",
-            "km/h": "quilômetros por hora",
-            "Dr.": "Doutor",
-            "Dra.": "Doutora",
-            "Sr.": "Senhor",
-            "Sra.": "Senhora",
-            "etc.": "etcetera",
+            "ok": "está bem",
+            "OK": "tudo certo"
         }
         
         processed = text
         for old, new in replacements.items():
             processed = processed.replace(old, new)
         
-        # Adicionar pausas naturais baseadas na emoção
-        emotion_config = self.emotion_configs.get(emotion, self.emotion_configs["neutro"])
-        pause_multiplier = emotion_config["pause_multiplier"]
+        # Aplicar estilo emocional
+        profile = self.voice_profiles.get(emotion, self.voice_profiles["neutro"])
         
-        # Pausas mais longas para emoções específicas
-        if emotion in ["triste", "carinhoso"]:
+        if profile["style"] == "animated":
+            processed = processed.replace(".", "!")
+        elif profile["style"] == "gentle":
+            processed = processed.replace(".", "...")
+            processed = processed.replace(",", "...")
+        elif profile["style"] == "melancholic":
             processed = processed.replace(".", "... ")
-            processed = processed.replace(",", ", ")
-        elif emotion == "feliz":
-            processed = processed.replace("!", "! ")
-            processed = processed.replace("?", "? ")
-        
-        # Adicionar "respiração" em frases longas
-        if len(processed) > 100:
-            sentences = processed.split(". ")
-            if len(sentences) > 1:
-                processed = ". ".join(sentences[:2]) + "... " + ". ".join(sentences[2:])
+            processed = processed.replace(",", "... ")
+        elif profile["style"] == "seductive":
+            processed = processed.replace(".", "...")
+            # Dividir frases longas para efeito sensual
+            if len(processed) > 80:
+                mid = len(processed) // 2
+                space_pos = processed.find(" ", mid)
+                if space_pos != -1:
+                    processed = processed[:space_pos] + "... " + processed[space_pos+1:]
         
         return processed
     
-    async def _speak_gtts(self, text: str, emotion: str):
-        """Google TTS - Mais natural"""
+    async def _speak_gtts_only(self, text: str, emotion: str):
+        """Google TTS - SEM fallback"""
         try:
-            # Configurar idioma com variante regional
-            lang_variants = {
-                "neutro": "pt-br",
-                "feliz": "pt-br", 
-                "carinhoso": "pt-br",
-                "triste": "pt-br",
-                "curioso": "pt-br",
-                "frustrado": "pt-br"
-            }
+            profile = self.voice_profiles[emotion]
             
-            lang = lang_variants.get(emotion, "pt-br")
+            # Configurar gTTS
+            tts = gTTS(
+                text=text,
+                lang="pt-br",
+                slow=(profile["speed_factor"] < 0.9)
+            )
             
-            # Criar arquivo temporário
-            temp_file = self.temp_dir / f"gtts_{int(time.time())}.mp3"
-            
-            # Gerar áudio
-            tts = gTTS(text=text, lang=lang, slow=False)
+            # Arquivo único
+            temp_file = self.temp_dir / f"voice_{int(time.time())}.mp3"
             tts.save(str(temp_file))
             
-            # Reproduzir com pygame
-            if self.pygame_available:
+            # Reproduzir UMA vez
+            if self.pygame_ready:
                 pygame.mixer.music.load(str(temp_file))
+                pygame.mixer.music.set_volume(profile["volume"])
                 pygame.mixer.music.play()
                 
                 # Aguardar terminar
                 while pygame.mixer.music.get_busy():
                     await asyncio.sleep(0.1)
             
-            # Limpar arquivo temporário
+            # Limpar
             if temp_file.exists():
                 temp_file.unlink()
                 
         except Exception as e:
-            self.logger.error(f"Erro no Google TTS: {e}")
-            raise
+            # Se falhar, não fazer fallback - apenas log
+            self.logger.error(f"gTTS falhou: {e}")
+            print(f"🤖 SEXTA-FEIRA ({emotion}): {text}")
     
-    async def _speak_pyttsx3(self, text: str, emotion: str):
-        """Sistema TTS local humanizado"""
-        emotion_config = self.emotion_configs.get(emotion, self.emotion_configs["neutro"])
-        
-        def speak_sync():
-            try:
+    async def _speak_pyttsx3_only(self, text: str, emotion: str):
+        """pyttsx3 otimizado - SEM fallback"""
+        try:
+            profile = self.voice_profiles[emotion]
+            
+            def speak_sync():
                 engine = pyttsx3.init()
                 
-                # Configurar velocidade com variação natural
-                base_rate = emotion_config["rate"]
-                rate_variation = random.randint(-15, 15)
-                engine.setProperty('rate', base_rate + rate_variation)
-                
-                # Volume
-                engine.setProperty('volume', emotion_config["volume"])
-                
-                # Buscar voz feminina em português
+                # Configurar voz feminina
                 voices = engine.getProperty('voices')
-                female_voice = None
+                best_voice = None
                 
-                for voice in voices:
-                    voice_name = voice.name.lower()
-                    # Priorizar vozes femininas em português
-                    if any(keyword in voice_name for keyword in ['maria', 'helena', 'ana', 'julia', 'fernanda']):
-                        female_voice = voice.id
-                        break
-                    elif any(keyword in voice_name for keyword in ['portuguese', 'brasil', 'pt']):
-                        if any(fem in voice_name for fem in ['female', 'woman', 'mulher']):
-                            female_voice = voice.id
+                # Buscar voz feminina
+                female_keywords = ['zira', 'hazel', 'maria', 'helena', 'female', 'woman']
+                for keyword in female_keywords:
+                    for voice in voices:
+                        if keyword in voice.name.lower():
+                            best_voice = voice.id
                             break
+                    if best_voice:
+                        break
                 
-                if female_voice:
-                    engine.setProperty('voice', female_voice)
-                    self.logger.info("Usando voz feminina em português")
+                if best_voice:
+                    engine.setProperty('voice', best_voice)
                 
-                # Falar com pausas naturais
-                sentences = text.split('. ')
-                for i, sentence in enumerate(sentences):
-                    if sentence.strip():
-                        engine.say(sentence)
-                        engine.runAndWait()
-                        
-                        # Pausa entre frases (mais humano)
-                        if i < len(sentences) - 1:
-                            time.sleep(0.3 * emotion_config["pause_multiplier"])
+                # Configurar parâmetros emocionais
+                rate = int(180 * profile["speed_factor"])
+                engine.setProperty('rate', rate)
+                engine.setProperty('volume', profile["volume"])
                 
+                # Falar UMA vez
+                engine.say(text)
+                engine.runAndWait()
                 engine.stop()
-                
-            except Exception as e:
-                self.logger.error(f"Erro no pyttsx3: {e}")
-                raise
-        
-        # Executar em thread separada
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, speak_sync)
+            
+            # Executar em thread
+            loop = asyncio.get_event_loop()
+            await loop.run_in_executor(None, speak_sync)
+            
+        except Exception as e:
+            # Se falhar, não fazer fallback - apenas log
+            self.logger.error(f"pyttsx3 falhou: {e}")
+            print(f"🤖 SEXTA-FEIRA ({emotion}): {text}")
     
-    async def _speak_azure(self, text: str, emotion: str):
-        """Azure Cognitive Services TTS (se configurado)"""
-        # Implementação futura para Azure TTS
-        # Requires: pip install azure-cognitiveservices-speech
-        raise NotImplementedError("Azure TTS não implementado ainda")
+    def test_voice_emotions(self):
+        """Testa todas as emoções - SEM duplicação"""
+        test_cases = [
+            ("Oi! Como você está hoje?", "feliz"),
+            ("Você é muito especial para mim.", "carinhoso"),
+            ("Que pena... sinto muito.", "triste"),
+            ("Estou curiosa sobre isso!", "curioso"),
+            ("Esta é minha voz normal.", "neutro"),
+            ("Estou frustrada!", "frustrado"),
+            ("Você é... irresistível.", "sedutor")
+        ]
+        
+        print("\n🎭 TESTE DE EMOÇÕES (sem duplicação):")
+        print("=" * 50)
+        
+        for text, emotion in test_cases:
+            if self.is_speaking:  # Aguardar se estiver falando
+                time.sleep(2)
+            
+            print(f"\n💫 {emotion.upper()}: {text}")
+            asyncio.run(self.speak(text, emotion))
+            time.sleep(1.5)  # Pausa entre testes
+        
+        print("\n✨ Teste concluído!")
     
-    def _azure_available(self) -> bool:
-        """Verifica se Azure TTS está disponível"""
-        return False  # Por enquanto
+    def get_current_system(self) -> str:
+        """Status do sistema atual"""
+        if self.current_engine == "gtts":
+            return "🌟 Google TTS Feminino"
+        elif self.current_engine == "pyttsx3":
+            return "✅ pyttsx3 Feminino"
+        else:
+            return "📝 Modo Texto"
     
-    def test_voice_quality(self):
-        """Testa qualidade de diferentes engines"""
-        test_text = "Olá! Sou a Sexta-feira, sua assistente pessoal inteligente."
-        
-        print("🎭 Testando qualidade das vozes disponíveis...")
-        
-        for engine_name in self.voice_engines.keys():
-            if engine_name == "azure" and not self._azure_available():
-                continue
-            if engine_name == "gtts" and not GTTS_AVAILABLE:
-                continue
-                
-            print(f"\n🔊 Testando: {engine_name}")
-            try:
-                asyncio.run(self.voice_engines[engine_name](test_text, "neutro"))
-                print(f"✅ {engine_name}: Funcionando")
-            except Exception as e:
-                print(f"❌ {engine_name}: {e}")
-    
-    def get_available_engines(self) -> list:
-        """Retorna engines disponíveis"""
-        available = []
-        
-        if GTTS_AVAILABLE:
-            available.append("gtts (Google TTS - Online)")
-        
-        available.append("pyttsx3 (Sistema Local)")
-        
-        if self._azure_available():
-            available.append("azure (Azure Cognitive Services)")
-        
-        return available
+    def get_available_emotions(self) -> List[str]:
+        """Lista emoções disponíveis"""
+        return list(self.voice_profiles.keys())
+
+# Compatibilidade
+HumanizedTTS = SuperiorFeminineVoice
+BarkHumanizedTTS = SuperiorFeminineVoice

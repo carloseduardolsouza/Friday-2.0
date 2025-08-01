@@ -17,7 +17,7 @@ class ContextAnalyzer:
         self.friday_name_patterns = [
             # Variações de "sexta-feira"
             r"\bsexta.feira\b",
-            r"\bsexta\s+feira\b", 
+            r"\bsexta\s+feira\b",
             r"\bsextafeira\b",
             r"\bsexta\b(?!.*feira\s+que)",  # "sexta" mas não "sexta-feira que vem"
             

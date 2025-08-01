@@ -37,8 +37,8 @@ class ConversationManager:
             # Salvar no banco
             await self.database.save_conversation_message(
                 self.current_session_id,
-                role, 
-                content, 
+                role,
+                content,
                 metadata
             )
             

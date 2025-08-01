@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 
 from core.speech_to_text import SpeechToText
-from core.text_to_speech import HumanizedTTS
+from core.text_to_speech import BarkHumanizedTTS as HumanizedTTS
 from core.conversation import ConversationManager
 from core.context_analyzer import ContextAnalyzer
 from memory.user_profile import UserProfile
@@ -78,7 +78,7 @@ class AIAgent:
             
             # Inicializar gerenciador de conversas
             self.conversation_manager = ConversationManager(
-                self.database, 
+                self.database,
                 self.user_profile,
                 self.config
             )
@@ -109,7 +109,7 @@ class AIAgent:
         print("\n" + "="*70)
         print("🤖 FUNCIONALIDADES DISPONÍVEIS:")
         print("⌨️  Digite normalmente para conversar")
-        print("🎤 'voz' = usar reconhecimento de voz uma vez")  
+        print("🎤 'voz' = usar reconhecimento de voz uma vez")
         print("👂 'continuo' = MODO ESCUTA CONTÍNUA INTELIGENTE")
         print("🔧 'analise seu código' = AUTO-ANÁLISE DO PRÓPRIO CÓDIGO")
         print("🎭 'teste sua voz' = DEMONSTRAR EMOÇÕES DE VOZ")
@@ -232,7 +232,7 @@ class AIAgent:
             
             # Analisar se deve responder
             should_respond, reason, confidence = self.context_analyzer.should_respond(
-                text, 
+                text,
                 self.user_profile.get_user_name()
             )
             
@@ -410,7 +410,7 @@ RESPOSTA:"""
             # SEGUNDO: Verificar comandos de auto-modificação diretos
             mod_commands = [
                 "analisar código", "analise seu código", "verifica seu código",
-                "melhorar código", "melhore seu código", "otimize seu código", 
+                "melhorar código", "melhore seu código", "otimize seu código",
                 "status código", "como está seu código",
                 "backup código", "faça backup", "crie backup",
                 "teste sua voz", "teste de voz", "demonstre emoções",

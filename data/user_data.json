@@ -1,12 +1,6 @@
 {
   "name": "",
-  "age": 19,
-  "location": "",
-  "occupation": "",
-  "hobbies": [],
   "preferences": {},
-  "important_dates": {},
-  "family": {},
-  "goals": [],
-  "personality_traits": []
+  "hobbies": [],
+  "important_dates": {}
 }

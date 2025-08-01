@@ -86,7 +86,7 @@ class ConversationState:
         
         # 1. COMANDO EXPLÍCITO DE ATIVAÇÃO
         activation_triggers = [
-            "sexta-feira", "sexta feira", "friday", 
+            "sexta-feira", "sexta feira", "friday",
             "ei sexta", "olá sexta", "oi sexta"
         ]
         
