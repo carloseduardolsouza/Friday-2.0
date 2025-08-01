@@ -1,0 +1,11 @@
+{
+  "model_name": "tts_models/pt/cv/vits",
+  "model_type": "vits",
+  "language": "pt-br",
+  "quality": "good",
+  "emotions_supported": false,
+  "voice_cloning": false,
+  "description": "Voz padrão brasileira",
+  "sample_rate": 22050,
+  "features": ["Rápido", "Estável", "Português brasileiro"]
+}
