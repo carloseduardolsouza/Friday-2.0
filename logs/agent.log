@@ -677,3 +677,80 @@
 2025-08-01 08:54:39,951 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
 2025-08-01 08:54:58,237 - asyncio - ERROR - Task was destroyed but it is pending!
 task: <Task pending name='Task-7' coro=<AIAgent.handle_continuous_response() done, defined at C:\Users\conta\Documentos\Repositorios\Friday-2.0\core\agent.py:258> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[_chain_future.<locals>._call_set_state() at C:\Python313\Lib\asyncio\futures.py:391]>
+2025-08-01 09:18:54,388 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 09:18:54,390 - memory.database - INFO - Tabelas criadas!
+2025-08-01 09:18:54,390 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 09:18:54,390 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 09:18:54,685 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 09:18:54,695 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 09:18:54,696 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:3b', 'llama3.2:1b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 09:18:54,696 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 09:19:14,786 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 09:19:14,788 - memory.database - INFO - Tabelas criadas!
+2025-08-01 09:19:14,788 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 09:19:14,788 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 09:19:15,064 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 09:19:15,076 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 09:19:15,077 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:3b', 'llama3.2:1b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 09:19:15,078 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 09:19:21,468 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:19:21,469 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 09:19:21,469 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 09:19:21,744 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 09:19:22,748 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 09:19:22,877 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 09:20:09,688 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-08-01 09:20:09,688 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 09:20:09,690 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:21:00,159 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 09:21:00,162 - memory.database - INFO - Tabelas criadas!
+2025-08-01 09:21:00,162 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 09:21:00,162 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 09:21:00,443 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 09:21:00,455 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 09:21:00,456 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:3b', 'llama3.2:1b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 09:21:00,457 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 09:21:03,028 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:21:03,029 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 09:21:03,029 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 09:21:03,277 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 09:21:04,282 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 09:21:04,377 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 09:21:09,938 - core.command_executor - INFO - Comando interno detectado: analyze_code (0.95)
+2025-08-01 09:21:09,939 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:21:12,965 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050869.mp3'
+2025-08-01 09:21:12,977 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:21:26,990 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050872.mp3'
+2025-08-01 09:21:26,997 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:21:31,585 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050886.mp3'
+2025-08-01 09:21:49,850 - core.command_executor - INFO - Comando interno detectado: status_report (0.95)
+2025-08-01 09:21:49,852 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:21:54,086 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050909.mp3'
+2025-08-01 09:21:54,092 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:22:08,200 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050914.mp3'
+2025-08-01 09:22:08,207 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:22:12,033 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050928.mp3'
+2025-08-01 09:22:20,596 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:22:25,828 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050940.mp3'
+2025-08-01 09:22:25,836 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-08-01 09:22:32,672 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 09:22:37,949 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:22:37,950 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:22:42,729 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 09:22:47,043 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:22:49,165 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050957.mp3'
+2025-08-01 09:23:03,956 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 09:23:07,773 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:23:07,774 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:23:15,549 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754050987.mp3'
+2025-08-01 09:23:21,774 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:23:21,775 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:23:40,340 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:23:40,422 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754051001.mp3'
+2025-08-01 09:24:08,362 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-08-01 09:24:19,204 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:24:19,205 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:24:40,668 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754051059.mp3'
+2025-08-01 09:25:01,935 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 09:25:01,939 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 09:25:28,714 - core.text_to_speech - ERROR - gTTS falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\voice_1754051101.mp3'

@@ -1,8 +1,4 @@
-# create_intelligent_memory_part1.py
-print("🧠 Criando Extrator de Fatos Inteligente...")
-
-# Parte 1: Extrator de Fatos
-extractor_code = '''# core/intelligent_extractor.py
+# core/intelligent_extractor.py
 import re
 import json
 import logging
@@ -33,72 +29,72 @@ class IntelligentFactExtractor:
         self.extraction_patterns = {
             # Informações pessoais básicas
             "age_direct": [
-                r"(?:eu )?tenho (\\d+) anos?",
-                r"(?:minha )?idade (?:é|são) (\\d+)",
-                r"(?:eu )?sou de (\\d{4})",  # Ano de nascimento
-                r"(?:eu )?nasci em (\\d{4})",
+                r"(?:eu )?tenho (\d+) anos?",
+                r"(?:minha )?idade (?:é|são) (\d+)",
+                r"(?:eu )?sou de (\d{4})",  # Ano de nascimento
+                r"(?:eu )?nasci em (\d{4})",
             ],
             
             "age_relative": [
-                r"quando (?:eu )?tinha (\\d+) anos?",
-                r"aos (\\d+) anos?",
-                r"desde os (\\d+)",
-                r"há (\\d+) anos? atrás",
+                r"quando (?:eu )?tinha (\d+) anos?",
+                r"aos (\d+) anos?",
+                r"desde os (\d+)",
+                r"há (\d+) anos? atrás",
             ],
             
             "location": [
-                r"(?:eu )?moro em ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?vivo em ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?sou de ([A-Za-zÀ-ÿ\\s]+)",
-                r"estou em ([A-Za-zÀ-ÿ\\s]+)",
-                r"aqui em ([A-Za-zÀ-ÿ\\s]+)",
-                r"na cidade de ([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:eu )?moro em ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?vivo em ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?sou de ([A-Za-zÀ-ÿ\s]+)",
+                r"estou em ([A-Za-zÀ-ÿ\s]+)",
+                r"aqui em ([A-Za-zÀ-ÿ\s]+)",
+                r"na cidade de ([A-Za-zÀ-ÿ\s]+)",
             ],
             
             "family": [
-                r"(?:minha )?(?:mãe|mamãe) (?:se chama|é a?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:meu )?(?:pai|papai) (?:se chama|é o?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:meu )?irmão (?:se chama|é o?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:minha )?irmã (?:se chama|é a?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:meu )?filho (?:se chama|é o?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:minha )?filha (?:se chama|é a?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:meu )?marido (?:se chama|é o?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:minha )?esposa (?:se chama|é a?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:meu )?namorado (?:se chama|é o?) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:minha )?namorada (?:se chama|é a?) ([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:minha )?(?:mãe|mamãe) (?:se chama|é a?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:meu )?(?:pai|papai) (?:se chama|é o?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:meu )?irmão (?:se chama|é o?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:minha )?irmã (?:se chama|é a?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:meu )?filho (?:se chama|é o?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:minha )?filha (?:se chama|é a?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:meu )?marido (?:se chama|é o?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:minha )?esposa (?:se chama|é a?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:meu )?namorado (?:se chama|é o?) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:minha )?namorada (?:se chama|é a?) ([A-Za-zÀ-ÿ\s]+)",
             ],
             
             "occupation": [
-                r"(?:eu )?trabalho (?:como|de) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?sou ([A-Za-zÀ-ÿ\\s]+) de profissão",
-                r"(?:minha )?profissão é ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?atuo como ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?faço faculdade de ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?estudo ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?curso ([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:eu )?trabalho (?:como|de) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?sou ([A-Za-zÀ-ÿ\s]+) de profissão",
+                r"(?:minha )?profissão é ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?atuo como ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?faço faculdade de ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?estudo ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?curso ([A-Za-zÀ-ÿ\s]+)",
             ],
             
             "preferences": [
-                r"(?:eu )?(?:gosto|amo|adoro) (?:de |muito )?([A-Za-zÀ-ÿ\\s,]+)",
-                r"(?:eu )?(?:odeio|detesto|não gosto) (?:de |muito )?([A-Za-zÀ-ÿ\\s,]+)",
-                r"(?:meu )?(?:favorito|preferido) é ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:minha )?(?:favorita|preferida) é ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?prefiro ([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:eu )?(?:gosto|amo|adoro) (?:de |muito )?([A-Za-zÀ-ÿ\s,]+)",
+                r"(?:eu )?(?:odeio|detesto|não gosto) (?:de |muito )?([A-Za-zÀ-ÿ\s,]+)",
+                r"(?:meu )?(?:favorito|preferido) é ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:minha )?(?:favorita|preferida) é ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?prefiro ([A-Za-zÀ-ÿ\s]+)",
             ],
             
             "activities": [
-                r"(?:eu )?(?:faço|pratico) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?jogo ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?assisto ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?leio ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?escuto ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:no )?(?:meu )?tempo livre (?:eu )?([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:eu )?(?:faço|pratico) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?jogo ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?assisto ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?leio ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?escuto ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:no )?(?:meu )?tempo livre (?:eu )?([A-Za-zÀ-ÿ\s]+)",
             ],
             
             "emotions": [
-                r"(?:eu )?(?:me sinto|estou) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:isso )?me (?:deixa|faz ficar) ([A-Za-zÀ-ÿ\\s]+)",
-                r"(?:eu )?(?:fico|fiquei) ([A-Za-zÀ-ÿ\\s]+)",
+                r"(?:eu )?(?:me sinto|estou) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:isso )?me (?:deixa|faz ficar) ([A-Za-zÀ-ÿ\s]+)",
+                r"(?:eu )?(?:fico|fiquei) ([A-Za-zÀ-ÿ\s]+)",
             ]
         }
         
@@ -288,15 +284,3 @@ class IntelligentFactExtractor:
                     merged[key] = fact
         
         return list(merged.values())
-'''
-
-# Salvar parte 1
-with open("core/intelligent_extractor.py", "w", encoding="utf-8") as f:
-    f.write(extractor_code)
-
-print("✅ Parte 1 criada: core/intelligent_extractor.py")
-print("🔍 Extrator inteligente de fatos pessoais")
-print("📝 Suporta idade, localização, família, trabalho, preferências")
-print("🧮 Sistema de inferência automática")
-print("")
-print("🚀 Continue com: python create_intelligent_memory_part2.py")

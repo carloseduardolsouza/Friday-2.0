@@ -1,8 +1,4 @@
-# create_intelligent_memory_part3.py
-print("⏰ Criando Sistema de Inferência Temporal...")
-
-# Parte 3: Sistema de Inferência Temporal
-temporal_inference_code = '''# core/temporal_inference.py
+# core/temporal_inference.py
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any
 import re
@@ -17,17 +13,17 @@ class TemporalInferenceEngine:
         # Padrões temporais (corrigidos)
         self.temporal_patterns = {
             'absolute_dates': [
-                r'em (\\d{4})',
-                r'no ano de (\\d{4})',
-                r'(\\d{1,2})/(\\d{1,2})/(\\d{4})',
-                r'(\\d{1,2}) de ([a-záêçõ]+) de (\\d{4})'
+                r'em (\d{4})',
+                r'no ano de (\d{4})',
+                r'(\d{1,2})/(\d{1,2})/(\d{4})',
+                r'(\d{1,2}) de ([a-záêçõ]+) de (\d{4})'
             ],
             'relative_time': [
-                r'há (\\d+) (anos?|meses?|semanas?|dias?)',
-                r'faz (\\d+) (anos?|meses?|semanas?|dias?)',
-                r'(\\d+) (anos?|meses?|semanas?|dias?) atrás',
-                r'desde (\\d+)',
-                r'quando (?:eu )?tinha (\\d+) anos?'
+                r'há (\d+) (anos?|meses?|semanas?|dias?)',
+                r'faz (\d+) (anos?|meses?|semanas?|dias?)',
+                r'(\d+) (anos?|meses?|semanas?|dias?) atrás',
+                r'desde (\d+)',
+                r'quando (?:eu )?tinha (\d+) anos?'
             ],
             'life_events': [
                 r'quando (?:eu )?(?:estava|estudava) na (?:escola|faculdade|universidade)',
@@ -236,7 +232,7 @@ class TemporalInferenceEngine:
         # Se é sobre idade no passado, inferir idade atual
         if 'tinha' in time_ref['original'] and 'anos' in time_ref['original']:
             # "há 5 anos eu tinha 20 anos" -> idade atual = 25
-            match = re.search(r'tinha (\\d+) anos?', time_ref['original'])
+            match = re.search(r'tinha (\d+) anos?', time_ref['original'])
             if match:
                 past_age = int(match.group(1))
                 current_age = past_age + amount
@@ -362,16 +358,3 @@ class TemporalInferenceEngine:
             return "adulto_maduro"
         else:
             return "idoso"
-'''
-
-# Salvar parte 3
-with open("core/temporal_inference.py", "w", encoding="utf-8") as f:
-    f.write(temporal_inference_code)
-
-print("✅ Parte 3 criada: core/temporal_inference.py")
-print("⏰ Sistema de inferência temporal avançado")
-print("🧮 Cálculo automático de idade por ano de nascimento")
-print("🔍 Detecção de eventos da vida e marcos temporais")
-print("✅ Validação de consistência temporal")
-print("")
-print("🚀 Continue com: python create_intelligent_memory_part4.py")
