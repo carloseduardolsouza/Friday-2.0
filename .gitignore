@@ -27,6 +27,7 @@ data/conversations.db
 # Scripts de instalação (após uso)
 install_*.py
 update_*.py
+create_*.py
 fix_*.py
 simple_*.py
 self_modification.py
