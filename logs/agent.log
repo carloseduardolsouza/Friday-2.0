@@ -484,3 +484,75 @@
 2025-08-01 00:06:57,975 - core.command_executor - INFO - Comando interno detectado: self_improve (0.95)
 2025-08-01 00:09:15,728 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
 2025-08-01 00:09:15,730 - memory.database - INFO - Conexão com banco fechada
+2025-08-01 00:12:50,792 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 00:12:50,793 - memory.database - INFO - Tabelas criadas!
+2025-08-01 00:12:50,793 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 00:12:50,794 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 00:12:51,075 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 00:12:51,084 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 00:12:51,085 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 00:12:51,086 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 00:12:57,772 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:12:57,773 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 00:12:57,773 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 00:12:58,158 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 00:12:59,162 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 00:12:59,258 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 00:13:15,392 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 00:13:15,393 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:13:48,351 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754017995.mp3'
+2025-08-01 00:13:48,352 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754017995.mp3'
+2025-08-01 00:13:48,432 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 00:13:48,433 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 00:13:48,615 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:13:58,235 - core.command_executor - INFO - Comando interno detectado: test_voice (0.95)
+2025-08-01 00:13:58,236 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:02,889 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018038.mp3'
+2025-08-01 00:14:02,890 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018038.mp3'
+2025-08-01 00:14:02,945 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:06,363 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:10,719 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018046.mp3'
+2025-08-01 00:14:10,720 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018046.mp3'
+2025-08-01 00:14:10,771 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:13,837 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:18,576 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018053.mp3'
+2025-08-01 00:14:18,576 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018053.mp3'
+2025-08-01 00:14:18,623 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:23,749 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:28,145 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018063.mp3'
+2025-08-01 00:14:28,146 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018063.mp3'
+2025-08-01 00:14:28,198 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:35,367 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:40,197 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018075.mp3'
+2025-08-01 00:14:40,198 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018075.mp3'
+2025-08-01 00:14:40,256 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:46,103 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:50,063 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018086.mp3'
+2025-08-01 00:14:50,064 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018086.mp3'
+2025-08-01 00:14:50,116 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:14:54,986 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 00:14:59,452 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018094.mp3'
+2025-08-01 00:14:59,452 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754018094.mp3'
+2025-08-01 00:14:59,550 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 00:15:04,528 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 08:33:25,556 - core.agent - INFO - Inicializando componentes do agente...
+2025-08-01 08:33:25,563 - memory.database - INFO - Tabelas criadas!
+2025-08-01 08:33:25,563 - memory.database - INFO - Banco de dados inicializado!
+2025-08-01 08:33:25,564 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-08-01 08:33:25,954 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-08-01 08:33:26,056 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-08-01 08:33:26,058 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-08-01 08:33:26,058 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-08-01 08:33:37,209 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-08-01 08:33:37,210 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-08-01 08:33:37,211 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-08-01 08:33:37,514 - core.speech_to_text - INFO - Calibrando microfone...
+2025-08-01 08:33:38,518 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-08-01 08:33:38,610 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-08-01 08:33:52,214 - gtts.lang - WARNING - 'pt-br' has been deprecated, falling back to 'pt'. This fallback will be removed in a future version.
+2025-08-01 08:33:57,159 - core.text_to_speech - ERROR - Erro no Google TTS: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754048032.mp3'
+2025-08-01 08:33:57,159 - core.text_to_speech - WARNING - Engine gtts falhou: [WinError 32] O arquivo já está sendo usado por outro processo: 'temp_audio\\gtts_1754048032.mp3'
+2025-08-01 08:33:57,258 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-08-01 08:33:57,258 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-08-01 08:33:57,500 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-08-01 08:34:01,758 - core.speech_to_text - INFO - Iniciando escuta contínua...
