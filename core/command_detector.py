@@ -1,4 +1,4 @@
-# core/command_detector.py
+# core/command_detector.py - Atualizado com comandos de voz humana
 import re
 import logging
 from typing import Tuple, Optional
@@ -19,7 +19,7 @@ class InternalCommandDetector:
             r"\bstatus\s+(do\s+|de\s+)?(seu\s+)?código\b",
         ]
         
-        # Padrões para teste de voz
+        # Padrões para teste de voz (atualizados)
         self.voice_test_patterns = [
             r"\b(teste|testa)\s+(sua\s+|a\s+|tua\s+)?voz\b",
             r"\b(mostra|mostre)\s+(suas\s+|as\s+)?emoções\b",
@@ -28,6 +28,16 @@ class InternalCommandDetector:
             r"\b(teste|testa)\s+(as\s+|suas\s+)?emoções\b",
             r"\bemoções\s+(da\s+|de\s+)?voz\b",
             r"\bcomo\s+(é\s+|fica\s+)?(sua\s+|a\s+|tua\s+)?voz\b",
+            r"\b(voz\s+humana|sistema\s+coqui|teste\s+completo)\b",
+            r"\b(qualidade\s+da\s+voz|teste\s+de\s+qualidade)\b",
+        ]
+        
+        # Padrões para teste de voz humana (Coqui)
+        self.human_voice_patterns = [
+            r"\b(voz\s+humana|sistema\s+humano)\b",
+            r"\b(coqui|xtts|teste\s+coqui)\b",
+            r"\b(sistema\s+de\s+voz|demonstre\s+voz\s+humana)\b",
+            r"\b(teste\s+completo\s+de\s+voz)\b",
         ]
         
         # Padrões para backup
@@ -63,10 +73,15 @@ class InternalCommandDetector:
             if re.search(pattern, text_lower):
                 return "analyze_code", f"Comando de análise detectado", 0.95
         
-        # Verificar teste de voz
+        # Verificar teste de voz (incluindo voz humana)
         for pattern in self.voice_test_patterns:
             if re.search(pattern, text_lower):
                 return "test_voice", f"Comando de teste de voz detectado", 0.95
+        
+        # Verificar especificamente voz humana/Coqui
+        for pattern in self.human_voice_patterns:
+            if re.search(pattern, text_lower):
+                return "test_human_voice", f"Comando de voz humana detectado", 0.98
         
         # Verificar backup
         for pattern in self.backup_patterns:
