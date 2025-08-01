@@ -8,21 +8,21 @@ from dataclasses import dataclass, field
 @dataclass
 class VoiceConfig:
     """Configurações de voz"""
-    tts_engine: str = "pyttsx3"  # ou "gtts"
+    tts_engine: str = "pyttsx3"
     voice_rate: int = 200
     voice_volume: float = 0.9
     voice_language: str = "pt-BR"
     recognition_language: str = "pt-BR"
-    wake_word: str = "assistente"
+    wake_word: str = "sexta-feira"  # MUDANÇA AQUI
     
 @dataclass
 class ModelConfig:
     """Configurações do modelo de IA"""
-    model_name: str = "llama3.2:1b"  # MODELO MENOR - 1B em vez de 3B
+    model_name: str = "llama3.2:1b"
     model_path: str = "models/"
-    max_tokens: int = 1024  # REDUZIDO
+    max_tokens: int = 1024
     temperature: float = 0.7
-    context_length: int = 2048  # REDUZIDO
+    context_length: int = 2048
 
 @dataclass
 class DatabaseConfig:
@@ -34,14 +34,14 @@ class DatabaseConfig:
 @dataclass
 class AgentConfig:
     """Configuração geral do agente"""
-    name: str = "ARIA"  # Nome do seu assistente
-    personality: str = "amigável, prestativo e inteligente"
+    name: str = "SEXTA-FEIRA"  # MUDANÇA AQUI
+    personality: str = "amigável, prestativo e inteligente como a IA do Homem de Ferro"
     voice: VoiceConfig = field(default_factory=VoiceConfig)
     model: ModelConfig = field(default_factory=ModelConfig)
     database: DatabaseConfig = field(default_factory=DatabaseConfig)
     
     # Configurações de comportamento
-    auto_save_interval: int = 30  # segundos
+    auto_save_interval: int = 30
     max_conversation_history: int = 100
     enable_learning: bool = True
     debug_mode: bool = False
@@ -53,16 +53,12 @@ def load_config() -> AgentConfig:
     if config_file.exists():
         with open(config_file, 'r', encoding='utf-8') as f:
             config_data = json.load(f)
-        # Aqui você pode implementar a lógica para carregar do JSON
-        # Por simplicidade, retornamos a configuração padrão
     
-    # Criar diretórios necessários
     for directory in ["data", "logs", "models"]:
         Path(directory).mkdir(exist_ok=True)
     
     config = AgentConfig()
     
-    # Salvar configuração padrão se não existir
     if not config_file.exists():
         save_config(config)
     
@@ -73,7 +69,6 @@ def save_config(config: AgentConfig):
     config_file = Path("config/config.json")
     config_file.parent.mkdir(exist_ok=True)
     
-    # Converter para dicionário (simplificado)
     config_dict = {
         "name": config.name,
         "personality": config.personality,

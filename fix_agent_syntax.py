@@ -1,14 +1,13 @@
-# fix_syntax.py
-import os
+# fix_agent_syntax.py
+print("🔧 Corrigindo sintaxe do agent.py...")
 
-print("🔧 Corrigindo erro de sintaxe...")
-
-# Corrigir agent.py com aspas corretas
-agent_code = '''# core/agent.py
+# Vamos recriar o agent.py com a integração correta
+agent_content = '''# core/agent.py
 import asyncio
 import logging
 import signal
 import sys
+import threading
 from datetime import datetime
 from typing import Optional, Dict, Any
 
@@ -20,6 +19,7 @@ from memory.user_profile import UserProfile
 from memory.database import DatabaseManager
 from models.local_llm import LocalLLM
 from config.settings import AgentConfig
+from core.self_modifier import SelfModifier
 
 class AIAgent:
     """Classe principal do agente de IA com escuta contínua inteligente"""
@@ -43,11 +43,20 @@ class AIAgent:
         self.is_running = False
         self.continuous_mode = False
         
+        # Sistema de auto-modificação
+        self.self_modifier = None
+        
+        # Loop assíncrono para callbacks
+        self.main_loop = None
+        
     async def initialize(self):
         """Inicializa todos os componentes do agente"""
         self.logger.info("Inicializando componentes do agente...")
         
         try:
+            # Guardar referência do loop principal
+            self.main_loop = asyncio.get_event_loop()
+            
             # Inicializar banco de dados
             self.database = DatabaseManager(self.config.database)
             await self.database.initialize()
@@ -74,6 +83,9 @@ class AIAgent:
                 self.config
             )
             
+            # Inicializar sistema de auto-modificação
+            self.self_modifier = SelfModifier(self.llm, self.user_profile)
+            
             self.logger.info("Todos os componentes inicializados com sucesso!")
             
         except Exception as e:
@@ -95,9 +107,10 @@ class AIAgent:
         
         print("\\n" + "="*60)
         print("🤖 MODOS DISPONÍVEIS:")
-        print("⌨️  'texto' = modo texto normal")
+        print("⌨️  Digite normalmente para conversar")
         print("🎤 'voz' = falar uma vez")  
         print("👂 'continuo' = ESCUTA CONTÍNUA INTELIGENTE")
+        print("🔧 'analisar código' = AUTO-ANÁLISE")
         print("❌ 'sair' = encerrar")
         print("=" * 60 + "\\n")
         
@@ -152,12 +165,12 @@ class AIAgent:
         while self.continuous_mode and self.is_running:
             try:
                 # Aguardar comando de texto (não bloqueante)
-                print("\\n💬 [Comando ou 'parar' para sair do modo contínuo]:")
+                print("\\n💬 [Digite 'parar' para sair do modo contínuo]:")
                 
                 loop = asyncio.get_event_loop()
                 user_text = await asyncio.wait_for(
                     loop.run_in_executor(None, input, ">>> "),
-                    timeout=1.0
+                    timeout=2.0
                 )
                 
                 if user_text.strip().lower() == "parar":
@@ -201,8 +214,15 @@ class AIAgent:
             if should_respond and confidence > 0.4:
                 print("🎯 Vou responder!")
                 
-                # Processar resposta em background
-                asyncio.create_task(self.handle_continuous_response(text, reason, confidence))
+                # Agendar resposta no loop principal
+                if self.main_loop and self.main_loop.is_running():
+                    asyncio.run_coroutine_threadsafe(
+                        self.handle_continuous_response(text, reason, confidence),
+                        self.main_loop
+                    )
+                else:
+                    # Fallback: resposta síncrona simples
+                    print("🤖 ARIA: Olá! Estou aqui!")
             else:
                 print("🤐 Não é comigo, continuando a escutar...")
                 
@@ -223,6 +243,8 @@ class AIAgent:
                 
         except Exception as e:
             self.logger.error(f"Erro na resposta contínua: {e}")
+            # Resposta de fallback
+            print("🤖 ARIA: Desculpe, houve um erro interno.")
     
     async def create_contextual_response(self, text: str, reason: str, confidence: float) -> str:
         """Cria resposta baseada no contexto de detecção"""
@@ -233,49 +255,33 @@ class AIAgent:
             
             # Prompt adaptado ao contexto
             if "defesa" in reason.lower():
-                context_prompt = f"""SITUAÇÃO: O usuário fez um comentário negativo sobre você.
-COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma educada mas se defendendo. Mostre que você é útil e está aqui para ajudar."""
-            
+                context_prompt = f"SITUAÇÃO: O usuário fez um comentário negativo sobre você. COMENTÁRIO: '{text}' INSTRUÇÃO: Responda de forma educada mas se defendendo."
             elif "indireta" in reason.lower():
-                context_prompt = f"""SITUAÇÃO: O usuário mencionou você indiretamente em uma conversa.
-COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma natural, como se estivesse participando da conversa."""
-            
+                context_prompt = f"SITUAÇÃO: O usuário mencionou você indiretamente. COMENTÁRIO: '{text}' INSTRUÇÃO: Responda de forma natural."
             elif confidence > 0.8:
-                context_prompt = f"""SITUAÇÃO: O usuário se dirigiu diretamente a você.
-PERGUNTA/COMANDO: "{text}"
-INSTRUÇÃO: Responda de forma direta e útil."""
-            
+                context_prompt = f"SITUAÇÃO: O usuário se dirigiu diretamente a você. PERGUNTA: '{text}' INSTRUÇÃO: Responda de forma direta e útil."
             else:
-                context_prompt = f"""SITUAÇÃO: O usuário pode estar falando com você.
-FALA: "{text}"
-INSTRUÇÃO: Responda brevemente perguntando se era com você ou oferecendo ajuda."""
+                context_prompt = f"SITUAÇÃO: O usuário pode estar falando com você. FALA: '{text}' INSTRUÇÃO: Responda brevemente oferecendo ajuda."
             
-            prompt = f"""Você é ARIA, uma assistente pessoal IA amigável e inteligente.
-
-INFORMAÇÕES DO USUÁRIO:
-{user_info}
-
-EMOÇÃO DETECTADA: {dominant_emotion}
-
-{context_prompt}
-
-REGRAS:
-- Seja natural e conversacional
-- Máximo 2 frases
-- Se for defesa, seja educada mas firme
-- Use o nome do usuário quando apropriado
-
-RESPOSTA:"""
+            prompt = f"Você é ARIA, uma assistente pessoal IA amigável. USUÁRIO: {user_info} EMOÇÃO: {dominant_emotion} {context_prompt} Responda em máximo 2 frases. RESPOSTA:"
             
             response = await self.llm.generate_response(prompt)
             return response
             
         except Exception as e:
             self.logger.error(f"Erro ao criar resposta contextual: {e}")
-            return "Desculpe, houve um erro interno."
+            return "Oi! Estou aqui se precisar de alguma coisa."
     
+    async def handle_self_modification(self, request: str) -> str:
+        """Manipula pedidos de auto-modificação"""
+        try:
+            if self.self_modifier:
+                return await self.self_modifier.handle_modification_request(request)
+            else:
+                return "❌ Sistema não inicializado"
+        except Exception as e:
+            return f"❌ Erro: {e}"
+
     async def set_user_name(self, name: str):
         """Define nome do usuário"""
         self.user_profile.user_info.name = name
@@ -323,6 +329,11 @@ RESPOSTA:"""
         try:
             print("🧠 Processando...")
             
+            # Verificar comandos de auto-modificação
+            mod_commands = ["analisar código", "melhorar código", "status código", "backup código"]
+            if any(cmd in user_input.lower() for cmd in mod_commands):
+                return await self.handle_self_modification(user_input)
+            
             await self.user_profile.extract_and_update_info(user_input)
             
             prompt = self.create_simple_prompt(user_input)
@@ -338,15 +349,7 @@ RESPOSTA:"""
         """Cria prompt simples"""
         user_info = self.user_profile.get_summary()
         
-        prompt = f"""Você é ARIA, uma assistente pessoal amigável.
-
-USUÁRIO: {user_info}
-
-PERGUNTA: {user_input}
-
-Responda de forma natural e concisa (máximo 2 frases).
-
-RESPOSTA:"""
+        prompt = f"Você é ARIA, uma assistente pessoal amigável. USUÁRIO: {user_info} PERGUNTA: {user_input} Responda de forma natural e concisa (máximo 2 frases). RESPOSTA:"
         
         return prompt
     
@@ -373,9 +376,9 @@ RESPOSTA:"""
 '''
 
 # Salvar arquivo corrigido
-print("📝 Corrigindo core/agent.py...")
+print("📝 Salvando agent.py corrigido...")
 with open("core/agent.py", "w", encoding="utf-8") as f:
-    f.write(agent_code)
+    f.write(agent_content)
 
-print("✅ Erro de sintaxe corrigido!")
+print("✅ Sintaxe do agent.py corrigida!")
 print("🚀 Execute: python main.py")

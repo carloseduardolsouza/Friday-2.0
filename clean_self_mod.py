@@ -1,16 +1,18 @@
-# simple_fix.py
+# clean_self_mod.py
 import os
 
-print("🔧 Criando sistema de auto-modificação (versão simplificada)...")
+print("🔧 Criando sistema de auto-modificação (versão limpa)...")
 
-# 1. Criar code_analyzer.py
-code_analyzer = '''# core/code_analyzer.py
+# Primeiro, criar os arquivos separadamente
+
+# 1. code_analyzer.py
+print("📝 Criando core/code_analyzer.py...")
+with open("core/code_analyzer.py", "w", encoding="utf-8") as f:
+    f.write("""# core/code_analyzer.py
 import os
-import ast
 import logging
 import shutil
 from pathlib import Path
-from typing import Dict, List, Optional
 from datetime import datetime
 
 class CodeAnalyzer:
@@ -109,19 +111,12 @@ class CodeAnalyzer:
                 shutil.copy2(file_path, backup_file)
         
         return str(backup_path)
-    
-    def get_file_content(self, file_path):
-        try:
-            if file_path in self.modifiable_files and Path(file_path).exists():
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    return f.read()
-        except Exception:
-            pass
-        return None
-'''
+""")
 
-# 2. Criar self_modifier.py
-self_modifier = '''# core/self_modifier.py
+# 2. self_modifier.py
+print("📝 Criando core/self_modifier.py...")
+with open("core/self_modifier.py", "w", encoding="utf-8") as f:
+    f.write("""# core/self_modifier.py
 import logging
 from core.code_analyzer import CodeAnalyzer
 
@@ -199,59 +194,47 @@ class SelfModifier:
         
         else:
             return "🤔 Comandos disponíveis: analisar, melhorar, backup, status"
-    
-    def enable_auto_modification(self):
-        self.auto_modify_enabled = True
-        return "🟢 Auto-modificação habilitada"
-    
-    def disable_auto_modification(self):
-        self.auto_modify_enabled = False
-        return "🔴 Auto-modificação desabilitada"
-'''
+""")
 
-# 3. Script de atualização do agent.py
-update_agent = '''# update_agent_simple.py
-print("🔧 Atualizando agent.py...")
+# 3. Script para adicionar ao agent.py manualmente
+print("📝 Criando add_to_agent.py...")
+with open("add_to_agent.py", "w", encoding="utf-8") as f:
+    f.write("""# add_to_agent.py
+print("🔧 Adicionando sistema de auto-modificação ao agent.py...")
 
-# Ler arquivo atual
+# Ler arquivo agent.py
 with open("core/agent.py", "r", encoding="utf-8") as f:
     content = f.read()
 
-# Verificar se já foi atualizado
-if "self_modifier" in content:
-    print("✅ Agent.py já possui sistema de auto-modificação!")
-    exit()
-
-# Adicionar import
+# 1. Adicionar import se não existe
 if "from core.self_modifier import SelfModifier" not in content:
-    # Encontrar local dos imports
-    lines = content.split('\\n')
-    new_lines = []
-    
-    for line in lines:
-        new_lines.append(line)
-        if "from config.settings import AgentConfig" in line:
-            new_lines.append("from core.self_modifier import SelfModifier")
-    
-    content = '\\n'.join(new_lines)
+    # Encontrar linha dos imports
+    import_line = content.find("from config.settings import AgentConfig")
+    if import_line != -1:
+        # Encontrar fim da linha
+        end_line = content.find("\\n", import_line)
+        # Inserir novo import
+        new_import = "\\nfrom core.self_modifier import SelfModifier"
+        content = content[:end_line] + new_import + content[end_line:]
 
-# Adicionar variável no __init__
+# 2. Adicionar variável no __init__
 if "self.self_modifier" not in content:
-    content = content.replace(
-        "self.continuous_mode = False",
-        "self.continuous_mode = False\\n        \\n        # Sistema de auto-modificação\\n        self.self_modifier = None"
-    )
+    init_line = content.find("self.continuous_mode = False")
+    if init_line != -1:
+        end_line = content.find("\\n", init_line)
+        addition = "\\n        \\n        # Sistema de auto-modificação\\n        self.self_modifier = None"
+        content = content[:end_line] + addition + content[end_line:]
 
-# Adicionar inicialização
+# 3. Adicionar inicialização
 if "SelfModifier(self.llm" not in content:
-    content = content.replace(
-        'self.logger.info("Todos os componentes inicializados com sucesso!")',
-        '# Inicializar sistema de auto-modificação\\n            self.self_modifier = SelfModifier(self.llm, self.user_profile)\\n            \\n            self.logger.info("Todos os componentes inicializados com sucesso!")'
-    )
+    init_line = content.find('self.logger.info("Todos os componentes inicializados com sucesso!")')
+    if init_line != -1:
+        addition = "\\n            # Inicializar sistema de auto-modificação\\n            self.self_modifier = SelfModifier(self.llm, self.user_profile)\\n"
+        content = content[:init_line] + addition + content[init_line:]
 
-# Adicionar método de auto-modificação
+# 4. Adicionar método
 if "handle_self_modification" not in content:
-    new_method = '''
+    method_code = '''
     async def handle_self_modification(self, request: str) -> str:
         try:
             if self.self_modifier:
@@ -262,62 +245,43 @@ if "handle_self_modification" not in content:
             return f"❌ Erro: {e}"
 '''
     
-    # Inserir antes do check_exit_command
-    content = content.replace(
-        "def check_exit_command(self, text: str) -> bool:",
-        new_method + "\\n    def check_exit_command(self, text: str) -> bool:"
-    )
+    # Encontrar onde inserir (antes de check_exit_command)
+    insert_point = content.find("def check_exit_command(self, text: str) -> bool:")
+    if insert_point != -1:
+        content = content[:insert_point] + method_code + "\\n    " + content[insert_point:]
 
-# Atualizar process_input
-if "modificação" not in content:
-    # Encontrar início do process_input
-    start_pos = content.find("async def process_input(self, user_input: str)")
-    if start_pos != -1:
-        # Encontrar onde adicionar a lógica
-        try_pos = content.find("print(\\"🧠 Processando...\\")", start_pos)
-        if try_pos != -1:
-            # Adicionar verificação de comandos de modificação
-            new_logic = '''print("🧠 Processando...")
+# 5. Modificar process_input
+if "auto-modificação" not in content:
+    # Encontrar process_input
+    process_start = content.find('print("🧠 Processando...")')
+    if process_start != -1:
+        new_logic = '''print("🧠 Processando...")
             
             # Verificar comandos de auto-modificação
             mod_commands = ["analisar código", "melhorar código", "status código", "backup código"]
             if any(cmd in user_input.lower() for cmd in mod_commands):
                 return await self.handle_self_modification(user_input)
             '''
-            
-            content = content.replace(
-                'print("🧠 Processando...")',
-                new_logic
-            )
+        
+        # Substituir apenas a linha do print
+        end_line = content.find("\\n", process_start)
+        content = content[:process_start] + new_logic + content[end_line:]
 
-# Salvar arquivo atualizado
+# Salvar arquivo modificado
 with open("core/agent.py", "w", encoding="utf-8") as f:
     f.write(content)
 
-print("✅ Agent.py atualizado com sucesso!")
-'''
+print("✅ Sistema de auto-modificação adicionado ao agent.py!")
+""")
 
-# Salvar arquivos
-print("📝 Criando core/code_analyzer.py...")
-with open("core/code_analyzer.py", "w", encoding="utf-8") as f:
-    f.write(code_analyzer)
-
-print("📝 Criando core/self_modifier.py...")
-with open("core/self_modifier.py", "w", encoding="utf-8") as f:
-    f.write(self_modifier)
-
-print("📝 Criando update_agent_simple.py...")
-with open("update_agent_simple.py", "w", encoding="utf-8") as f:
-    f.write(update_agent)
-
-print("✅ Sistema de auto-modificação criado!")
+print("✅ Arquivos criados com sucesso!")
 print("")
-print("🚀 Para ativar:")
-print("1. python update_agent_simple.py")
+print("🚀 Para ativar o sistema:")
+print("1. python add_to_agent.py")
 print("2. python main.py")
 print("")
 print("💡 Comandos para testar:")
-print("• 'analisar código' → análise completa")
-print("• 'status código' → estado atual")
-print("• 'backup código' → criar backup")
-print("• 'melhorar código' → sugerir melhorias")
+print("• 'analisar código'")
+print("• 'status código'") 
+print("• 'backup código'")
+print("• 'melhorar código'")

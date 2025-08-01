@@ -1,14 +1,15 @@
-# fix_syntax.py
+# fix_async.py
 import os
 
-print("🔧 Corrigindo erro de sintaxe...")
+print("🔧 Corrigindo problema de event loop...")
 
-# Corrigir agent.py com aspas corretas
+# Corrigir agent.py com gerenciamento adequado de loops assíncronos
 agent_code = '''# core/agent.py
 import asyncio
 import logging
 import signal
 import sys
+import threading
 from datetime import datetime
 from typing import Optional, Dict, Any
 
@@ -43,11 +44,17 @@ class AIAgent:
         self.is_running = False
         self.continuous_mode = False
         
+        # Loop assíncrono para callbacks
+        self.main_loop = None
+        
     async def initialize(self):
         """Inicializa todos os componentes do agente"""
         self.logger.info("Inicializando componentes do agente...")
         
         try:
+            # Guardar referência do loop principal
+            self.main_loop = asyncio.get_event_loop()
+            
             # Inicializar banco de dados
             self.database = DatabaseManager(self.config.database)
             await self.database.initialize()
@@ -95,7 +102,7 @@ class AIAgent:
         
         print("\\n" + "="*60)
         print("🤖 MODOS DISPONÍVEIS:")
-        print("⌨️  'texto' = modo texto normal")
+        print("⌨️  Digite normalmente para conversar")
         print("🎤 'voz' = falar uma vez")  
         print("👂 'continuo' = ESCUTA CONTÍNUA INTELIGENTE")
         print("❌ 'sair' = encerrar")
@@ -152,12 +159,12 @@ class AIAgent:
         while self.continuous_mode and self.is_running:
             try:
                 # Aguardar comando de texto (não bloqueante)
-                print("\\n💬 [Comando ou 'parar' para sair do modo contínuo]:")
+                print("\\n💬 [Digite 'parar' para sair do modo contínuo]:")
                 
                 loop = asyncio.get_event_loop()
                 user_text = await asyncio.wait_for(
                     loop.run_in_executor(None, input, ">>> "),
-                    timeout=1.0
+                    timeout=2.0
                 )
                 
                 if user_text.strip().lower() == "parar":
@@ -201,8 +208,15 @@ class AIAgent:
             if should_respond and confidence > 0.4:
                 print("🎯 Vou responder!")
                 
-                # Processar resposta em background
-                asyncio.create_task(self.handle_continuous_response(text, reason, confidence))
+                # Agendar resposta no loop principal
+                if self.main_loop and self.main_loop.is_running():
+                    asyncio.run_coroutine_threadsafe(
+                        self.handle_continuous_response(text, reason, confidence),
+                        self.main_loop
+                    )
+                else:
+                    # Fallback: resposta síncrona simples
+                    print("🤖 ARIA: Olá! Estou aqui!")
             else:
                 print("🤐 Não é comigo, continuando a escutar...")
                 
@@ -223,6 +237,8 @@ class AIAgent:
                 
         except Exception as e:
             self.logger.error(f"Erro na resposta contínua: {e}")
+            # Resposta de fallback
+            print("🤖 ARIA: Desculpe, houve um erro interno.")
     
     async def create_contextual_response(self, text: str, reason: str, confidence: float) -> str:
         """Cria resposta baseada no contexto de detecção"""
@@ -235,37 +251,32 @@ class AIAgent:
             if "defesa" in reason.lower():
                 context_prompt = f"""SITUAÇÃO: O usuário fez um comentário negativo sobre você.
 COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma educada mas se defendendo. Mostre que você é útil e está aqui para ajudar."""
+INSTRUÇÃO: Responda de forma educada mas se defendendo. Mostre que você é útil."""
             
             elif "indireta" in reason.lower():
-                context_prompt = f"""SITUAÇÃO: O usuário mencionou você indiretamente em uma conversa.
+                context_prompt = f"""SITUAÇÃO: O usuário mencionou você indiretamente.
 COMENTÁRIO: "{text}"
-INSTRUÇÃO: Responda de forma natural, como se estivesse participando da conversa."""
+INSTRUÇÃO: Responda de forma natural, participando da conversa."""
             
             elif confidence > 0.8:
                 context_prompt = f"""SITUAÇÃO: O usuário se dirigiu diretamente a você.
-PERGUNTA/COMANDO: "{text}"
+PERGUNTA: "{text}"
 INSTRUÇÃO: Responda de forma direta e útil."""
             
             else:
                 context_prompt = f"""SITUAÇÃO: O usuário pode estar falando com você.
 FALA: "{text}"
-INSTRUÇÃO: Responda brevemente perguntando se era com você ou oferecendo ajuda."""
+INSTRUÇÃO: Responda brevemente oferecendo ajuda."""
             
-            prompt = f"""Você é ARIA, uma assistente pessoal IA amigável e inteligente.
+            prompt = f"""Você é ARIA, uma assistente pessoal IA amigável.
 
-INFORMAÇÕES DO USUÁRIO:
-{user_info}
+USUÁRIO: {user_info}
 
-EMOÇÃO DETECTADA: {dominant_emotion}
+EMOÇÃO: {dominant_emotion}
 
 {context_prompt}
 
-REGRAS:
-- Seja natural e conversacional
-- Máximo 2 frases
-- Se for defesa, seja educada mas firme
-- Use o nome do usuário quando apropriado
+Responda em máximo 2 frases, de forma natural.
 
 RESPOSTA:"""
             
@@ -274,7 +285,7 @@ RESPOSTA:"""
             
         except Exception as e:
             self.logger.error(f"Erro ao criar resposta contextual: {e}")
-            return "Desculpe, houve um erro interno."
+            return "Oi! Estou aqui se precisar de alguma coisa."
     
     async def set_user_name(self, name: str):
         """Define nome do usuário"""
@@ -377,5 +388,13 @@ print("📝 Corrigindo core/agent.py...")
 with open("core/agent.py", "w", encoding="utf-8") as f:
     f.write(agent_code)
 
-print("✅ Erro de sintaxe corrigido!")
+print("✅ Problema de event loop corrigido!")
+print("")
+print("🎯 CORREÇÕES APLICADAS:")
+print("• ✅ Referência ao loop principal salva")
+print("• ✅ asyncio.run_coroutine_threadsafe() para callbacks")
+print("• ✅ Fallback para resposta simples se falhar")
+print("• ✅ Timeout aumentado para modo contínuo")
+print("")
 print("🚀 Execute: python main.py")
+print("💡 Teste: 'continuo' → fale 'ARIA como você está?'")

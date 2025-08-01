@@ -158,3 +158,170 @@
 2025-07-31 22:34:32,872 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
 2025-07-31 22:38:57,766 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
 2025-07-31 22:38:57,767 - memory.database - INFO - Conexão com banco fechada
+2025-07-31 22:40:45,615 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 22:40:45,616 - memory.database - INFO - Tabelas criadas!
+2025-07-31 22:40:45,617 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 22:40:45,617 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 22:40:45,926 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 22:40:45,937 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 22:40:45,938 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 22:40:45,938 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 22:40:53,542 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:40:53,543 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 22:40:53,544 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 22:40:54,012 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 22:40:55,018 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 22:40:55,041 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 22:41:01,127 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 22:41:30,155 - core.agent - ERROR - Erro no processamento contínuo: no running event loop
+2025-07-31 22:43:19,545 - core.speech_to_text - INFO - Escuta contínua finalizada
+2025-07-31 22:43:32,145 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 22:43:32,147 - memory.database - INFO - Tabelas criadas!
+2025-07-31 22:43:32,148 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 22:43:32,148 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 22:43:32,422 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 22:43:32,436 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 22:43:32,437 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 22:43:32,437 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 22:43:35,131 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:43:35,132 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 22:43:35,132 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 22:43:35,523 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 22:43:36,527 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 22:43:36,559 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 22:43:43,733 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 22:43:52,339 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:43:52,394 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 22:43:52,395 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 22:44:19,136 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:44:29,142 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 22:50:07,042 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:50:17,046 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 22:51:19,486 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 22:51:19,489 - memory.database - INFO - Tabelas criadas!
+2025-07-31 22:51:19,489 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 22:51:19,490 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 22:51:19,785 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 22:51:19,799 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 22:51:19,800 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 22:51:19,800 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 22:53:51,694 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 22:53:51,696 - memory.database - INFO - Tabelas criadas!
+2025-07-31 22:53:51,696 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 22:53:51,696 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 22:53:52,075 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 22:53:52,087 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 22:53:52,088 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 22:53:52,089 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 22:58:41,792 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 22:58:41,794 - memory.database - INFO - Tabelas criadas!
+2025-07-31 22:58:41,794 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 22:58:41,794 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 22:58:42,080 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 22:58:42,091 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 22:58:42,092 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 22:58:42,093 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 22:58:45,598 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 22:58:45,599 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 22:58:45,599 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 22:58:46,048 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 22:58:47,056 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 22:58:47,088 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 22:58:57,999 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 22:58:58,000 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 22:59:07,948 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 22:59:23,642 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 22:59:52,787 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-07-31 22:59:52,788 - memory.database - INFO - Conexão com banco fechada
+2025-07-31 22:59:53,868 - core.speech_to_text - INFO - Escuta contínua finalizada
+2025-07-31 23:03:50,788 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 23:03:50,791 - memory.database - INFO - Tabelas criadas!
+2025-07-31 23:03:50,791 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 23:03:50,791 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 23:03:51,069 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 23:03:51,081 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 23:03:51,083 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 23:03:51,083 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 23:03:58,416 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:03:58,417 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 23:03:58,417 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 23:03:58,803 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 23:03:59,806 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 23:03:59,836 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 23:04:05,435 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 23:04:10,688 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:04:14,949 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:04:15,003 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 23:04:15,004 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 23:04:24,953 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:04:29,751 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:04:33,003 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:04:43,013 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:04:50,236 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:04:55,578 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:05:05,589 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:05:11,357 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:05:21,372 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:05:29,573 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:05:39,578 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:05:46,336 - core.conversation_state - INFO - Conversa encerrada explicitamente (comando 'mudo')
+2025-07-31 23:09:29,901 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 23:09:29,904 - memory.database - INFO - Tabelas criadas!
+2025-07-31 23:09:29,904 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 23:09:29,905 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 23:09:30,205 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 23:09:30,218 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 23:09:30,219 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 23:09:30,219 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 23:09:33,048 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:09:33,049 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 23:09:33,049 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 23:09:33,441 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 23:09:34,446 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 23:09:34,472 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 23:09:39,375 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 23:09:43,914 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:09:48,063 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:09:48,104 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 23:09:48,105 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 23:09:48,241 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:10:10,097 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:10:25,113 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:11:47,381 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:11:50,005 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:12:05,017 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:12:11,514 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:12:26,518 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:12:26,937 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:12:34,046 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:12:49,054 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:12:57,508 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:13:12,514 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:13:49,919 - core.speech_to_text - INFO - Escuta contínua finalizada
+2025-07-31 23:16:15,898 - core.agent - INFO - Inicializando componentes do agente...
+2025-07-31 23:16:15,900 - memory.database - INFO - Tabelas criadas!
+2025-07-31 23:16:15,901 - memory.database - INFO - Banco de dados inicializado!
+2025-07-31 23:16:15,901 - memory.user_profile - INFO - Perfil do usuário carregado do banco de dados
+2025-07-31 23:16:16,273 - models.local_llm - INFO - Inicializando modelo llama3.2:1b...
+2025-07-31 23:16:16,288 - httpx - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-31 23:16:16,289 - models.local_llm - INFO - Modelos disponíveis: ['llama3.2:1b', 'llama3.2:3b', 'llama2:latest', 'gemma3:4b']
+2025-07-31 23:16:16,290 - models.local_llm - INFO - Modelo llama3.2:1b encontrado!
+2025-07-31 23:16:18,743 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:16:18,743 - models.local_llm - INFO - Teste do modelo bem-sucedido!
+2025-07-31 23:16:18,744 - models.local_llm - INFO - Modelo inicializado com sucesso!
+2025-07-31 23:16:19,146 - core.speech_to_text - INFO - Calibrando microfone...
+2025-07-31 23:16:20,151 - core.speech_to_text - INFO - Microfone calibrado para escuta contínua!
+2025-07-31 23:16:20,182 - core.agent - INFO - Todos os componentes inicializados com sucesso!
+2025-07-31 23:16:25,697 - comtypes.client._code_cache - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\conta\\AppData\\Roaming\\Python\\Python313\\site-packages\\comtypes\\gen\\__init__.py'>
+2025-07-31 23:16:25,697 - comtypes.client._code_cache - INFO - Using writeable comtypes cache directory: 'C:\Users\conta\AppData\Roaming\Python\Python313\site-packages\comtypes\gen'
+2025-07-31 23:16:25,835 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:16:31,193 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:16:36,089 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:16:41,028 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:16:45,149 - core.text_to_speech - INFO - Usando voz feminina em português
+2025-07-31 23:34:44,365 - core.speech_to_text - INFO - Iniciando escuta contínua...
+2025-07-31 23:34:50,815 - core.conversation_state - INFO - Conversa ativada explicitamente (nome chamado)
+2025-07-31 23:35:02,517 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-31 23:35:17,526 - core.text_to_speech - WARNING - TTS timeout
+2025-07-31 23:35:58,039 - memory.user_profile - INFO - Perfil do usuário salvo com sucesso
+2025-07-31 23:35:58,040 - memory.database - INFO - Conexão com banco fechada
